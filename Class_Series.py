@@ -38,6 +38,12 @@ class Serie:
         self.vote_avg = vote_avg
         self.vote_count = vote_count
 
+    def __get__(self, instance, owner):
+        '''TODO'''
+
+    def __set__(self, instance, value):
+        '''TODO'''
+
 
 class Season:
     '''Class defining a Season'''
@@ -48,6 +54,12 @@ class Season:
         self.name = name
         self.overview = overview
         self.season_number = season_number
+
+    def __get__(self, instance, owner):
+        '''TODO'''
+
+    def __set__(self, instance, value):
+        '''TODO'''
 
 
 class Episode:
@@ -61,6 +73,12 @@ class Episode:
         self.season_number = season_number
         self.vote_avg = vote_avg
         self.vote_count = vote_count
+
+    def __get__(self, instance, owner):
+        '''TODO'''
+
+    def __set__(self, instance, value):
+        '''TODO'''
 
 
 

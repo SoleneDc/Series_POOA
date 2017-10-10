@@ -10,8 +10,10 @@ class Services:
     URL_BASE = "https://api.themoviedb.org/3/"
     KEY = "e4c6a6f5fbd60b0316b7ff30e73bec74"
 
-    def SearchByName(self,name):
-        """TODO : fonction qui affiche les résultats d'une recherche"""
+    def SearchSeriesNames(self):
+        """
+        Function that searches the Series by name and returns all the Series names that include the string in input
+        """
 
     def researchPerson(self, Person):
         """
