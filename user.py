@@ -4,9 +4,9 @@ class User:
     def __init__(self, id, firstName, lastName, birthDate, gender, picture):
         """Basic constructor"""
         self._id = id
-        self.firstName = firstName
-        self.lastName = lastName
-        self.birthDate = birthDate
+        self.first_name = firstName
+        self.last_name = lastName
+        self.birth_date = birthDate
         self.gender = gender
         self.picture = picture
 
