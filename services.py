@@ -21,7 +21,7 @@ class Services:
         """
         url_search_person = url_base + '/search/person?api_key=' + key + '>>&language=en-US&query=' + Person + '&include_adult=false'
 
-
+XX
 
 
     def effacerFavori(self, user):
