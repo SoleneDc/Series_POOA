@@ -59,6 +59,6 @@ class Episode:
         self.vote_avg = vote_avg
         self.vote_count = vote_count
 
-"Voilà"
+
 
 
