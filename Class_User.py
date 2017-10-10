@@ -1,7 +1,7 @@
 class User:
     """This class represent the user of our app"""
 
-    def __init__(self, id, firstName, lastName, birthDate, gender, picture):
+    def __init__(self, id, firstName, lastName, birthDate, gender, picture, favoriteSeries):
         """Basic constructor"""
         self._id = id
         self.first_name = firstName
@@ -9,6 +9,7 @@ class User:
         self.birth_date = birthDate
         self.gender = gender
         self.picture = picture
+        self.favoriteSeries = favoriteSeries
 
     def _get_id(self):
         """Getter for the id"""
