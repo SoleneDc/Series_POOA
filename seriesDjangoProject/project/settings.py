@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'seriesDjangoProject.urls'
+ROOT_URLCONF = 'seriesDjangoProject.project.urls'
 
 TEMPLATES = [
     {
@@ -67,18 +67,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'seriesDjangoProject.wsgi.application'
+WSGI_APPLICATION = 'seriesDjangoProject.project.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#No database in our scolar project
+DATABASES = {}
 
 
 # Password validation
