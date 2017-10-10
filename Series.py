@@ -14,9 +14,10 @@ pprint(req.json())
 
 
 class Serie():
-    def __init__(self, episode_run_time, first_air_date, genres, in_production, languages, last_air_date, name,
+    def __init__(self, id,  episode_run_time, first_air_date, genres, in_production, languages, last_air_date, name,
                  networks, episodes, seasons, origin_country, original_language, original_name,
                  overview, popularity, production_companies, vote_avg, vote_count):
+        self.id = id
         self.episode_run_time = episode_run_time
         self.first_air_date = first_air_date
         self.genres = genres
@@ -38,7 +39,8 @@ class Serie():
 
 
 class Season:
-    def __init__(self, air_date, episodes, name, overview, season_number):
+    def __init__(self, id, air_date, episodes, name, overview, season_number):
+        self.id = id
         self.air_date = air_date
         self.episodes = episodes
         self.name = name
@@ -47,7 +49,8 @@ class Season:
 
 
 class Episode:
-    def __init__(self, air_date, episode_number, name, overview, season_number, vote_avg, vote_count):
+    def __init__(self, id, air_date, episode_number, name, overview, season_number, vote_avg, vote_count):
+        self.id = id
         self.air_date = air_date
         self.episode_number = episode_number
         self.name = name
