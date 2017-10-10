@@ -7,16 +7,18 @@ pprint(req.json())
 
 
 class Services:
-    url = "https://api.themoviedb.org/3/"
-    key = "e4c6a6f5fbd60b0316b7ff30e73bec74"
+    URL_BASE = "https://api.themoviedb.org/3/"
+    KEY = "e4c6a6f5fbd60b0316b7ff30e73bec74"
 
     def SearchByName(self,name):
         """TODO : fonction qui affiche les résultats d'une recherche"""
 
-    def researchPerson(self,Person):
+    def researchPerson(self, Person):
         """
         Returns XXX to check
         """
+        url_search_person = url_base + '/search/person?api_key=' + key + '>>&language=en-US&query=' + Person + '&include_adult=false'
+
 
 
 
