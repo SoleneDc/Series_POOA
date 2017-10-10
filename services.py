@@ -13,6 +13,12 @@ class Services:
     def SearchByName(self,name):
         """TODO : fonction qui affiche les résultats d'une recherche"""
 
+    def researchPerson(self,Person):
+        """
+        Returns XXX to check
+        """
+
+
 
     def effacerFavori(self, user):
         """TODO : fonction qui efface les favori d'un user"""
