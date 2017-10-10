@@ -13,7 +13,7 @@ req = requests.get(url_discover_key)
 pprint(req.json())
 
 
-class Serie():
+class Serie:
     def __init__(self, id,  episode_run_time, first_air_date, genres, in_production, languages, last_air_date, name,
                  networks, episodes, seasons, origin_country, original_language, original_name,
                  overview, popularity, production_companies, vote_avg, vote_count):
