@@ -8,9 +8,13 @@
     <title>Accueil</title>
 </head>
 <body>
-
-    <input id="recherche" type="text" value="Tapez votre recherche ici"/><br/>
-    <button type="validate">Search</button>
+    <form action="/search/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="text" name="search"/>
+        <input type="submit" value="Submit" />
+    </form>
+</body>
     <br/>
 Ceci est la page d'accueil et je la modifie en live !!!!!!!
 </body>

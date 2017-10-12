@@ -10,18 +10,19 @@ class Services:
     DISCOVER = 'discover/tv?'
     FIND = 'find/tv?'
 
-    def search_series_names(self):
+    def __init__(self):
+        pass
+
+
+    def search_series_names(self, query):
         """
         Function that searches the Series by name and returns all the Series names that include the string in input
         """
-        query = input("Enter your research: ")
         url_final = Services.URL_BASE + Services.SEARCH + Services.KEY + '&query=' + query
         req = requests.get(url_final)
         result = []
         for item in req.json()['results']:
             result.append(item['name'])
-        print("We've found {} series matching your input:".format(len(result)))
-        print(result)
         return result
 
 
@@ -29,7 +30,7 @@ class Services:
         """
         Returns XXX to check
         """
-        url_search_person = url_base + '/search/person?api_key=' + key + '>>&language=en-US&query=' + Person + '&include_adult=false'
+        url_search_person = Services.URL_BASE + '/search/person?api_key=' + Services.KEY + '>>&language=en-US&query=' + Person + '&include_adult=false'
 
 
     def discover_best_series(self):
@@ -50,10 +51,4 @@ class Services:
 
     def effacerFavori(self, user):
         """TODO : fonction qui efface les favori d'un user"""
-
-
-def main():
-    Services().discover_best_series()
-
-main()
 
