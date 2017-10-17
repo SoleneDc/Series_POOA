@@ -48,7 +48,7 @@ def signIn(request):
             user.last_name = form.data['last_name']
             user.save()
             context={'name' : user.first_name}
-            return HttpResponseRedirect('/welcome/', context=context)
+            return HttpResponseRedirect('/welcome/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
