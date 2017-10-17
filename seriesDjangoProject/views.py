@@ -44,7 +44,7 @@ def signIn(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:*
-            user = User.objects.create_user(form.data['first_name'], form.data['email'],form.data['password'])
+            user = User.objects.create_user(form.data['first_name'], form.data['email'], form.data['password'])
             user.last_name = form.data['last_name']
             user.save()
             context={'name' : user.first_name}
