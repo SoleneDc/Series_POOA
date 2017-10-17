@@ -44,8 +44,8 @@ def signIn(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:*
-            user = User.objects.create_user(request.POST['first_name'], request.POST['email'],request.POST['password'])
-            user.last_name = request.POST['first_name']
+            user = User.objects.create_user(form.data['first_name'], form.data['email'],form.data['password'])
+            user.last_name = form.data['last_name']
             user.save()
             context={'name' : user.first_name}
             return HttpResponseRedirect('/welcome/', context=context)
@@ -58,9 +58,10 @@ def signIn(request):
 
 
 def searchResult(request):
-    service = services.Services()
-    template = loader.get_template('searchResult.html')
-    response=service.search_series_names(request.POST['search'])
+    service = services.Services() #charge service
+    template = loader.get_template('searchResult.html') #charge la page html
+    #request.POST['search'] est la chaine de caractères entrée en recherche par l'user
+    response=service.search_series_names(request.POST['search']) #effectue la recherche et r&cupere la réponse
     context={'response' : response}
     return HttpResponse(template.render(request=request, context=context))
 
