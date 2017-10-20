@@ -72,7 +72,7 @@ def search_people(request):
             context = {'response': response}
             return HttpResponse(template.render(request=request, context=context))
 
-    # if a GET (or any other method) we'll create a blank form
+    # if a GET (or any other method) we'll create a blank form//
     else:
         form = SearchForm()
 
