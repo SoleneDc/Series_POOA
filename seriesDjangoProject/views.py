@@ -70,9 +70,7 @@ def search_people(request):
             # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
             response = service.search_people(request.POST['searchp'])  # effectue la recherche et r&cupere la réponse
             context = {'response': response}
-            AFFICHAGE = HttpResponse(template.render(request=request, context=context))
-            for item in AFFICHAGE:
-
+            return HttpResponse(template.render(request=request, context=context))
 
     # if a GET (or any other method) we'll create a blank form
     else:
