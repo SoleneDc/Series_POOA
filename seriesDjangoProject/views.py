@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from .forms import *
 import services
 """This class defines the controllers for the application
@@ -112,3 +113,14 @@ def discoverBestSeries(request):
     bestseries = service.discover_best_series()
     context = {'bestseries' : bestseries}
     return HttpResponse(template.render(context = context))
+
+def logIn(request):
+    user = authenticate(username=request.POST['user_name'], password=request.POST['password'])
+    if user is not None:
+        request.session['member_id'] = user.id
+        template = loader.get_template('welcome.html')
+        return HttpResponse(template.render(request=request))
+    else:
+        template = loader.get_template('index.html')
+        context= {'message': "invalid authentication" }
+        return HttpResponse(template.render(request=request, context=context))

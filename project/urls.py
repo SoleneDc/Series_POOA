@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-
+from django.conf import settings
+from django.conf.urls.static import static
 from seriesDjangoProject import views
 
 urlpatterns = [
@@ -27,3 +28,6 @@ urlpatterns = [
     url(r'^signIn/', views.signIn),
     url(r'^search_people/', views.search_people)
 ]
+    url(r'^logIn/', views.logIn),
+    url(r'^signIn/', views.signIn)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

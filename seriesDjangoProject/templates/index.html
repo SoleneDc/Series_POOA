@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link type="text/css" href="{% static 'bootstrap.min.css' %}" />
+    <link type="text/css" href="{% static 'seriePOOA.css' %}" />
+     <script type="text/javascript" src="{% static 'jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
+
     <meta charset="UTF-8">
     <title>Accueil</title>
 </head>
@@ -50,4 +54,22 @@ Ceci est la page d'accueil et je la modifie en live !!!!!!!
     </div>
 
 </body>
+
+<div class="modal fade" id="log_in_modal">
+
+    {{ message }}
+     <form id="authentication_form" action="/logIn/" method="post">
+        {% csrf_token %}
+        {{ form }}
+
+        <label for="user_name">Prénom</label>
+        <input type="text" name="user_name"/>
+        <br/>
+        <label for="password">Password</label>
+        <input type="password" name="password"/>
+         <button  onclick="logIn()">Log In</button>
+    </form>
+
+    <button id="close_modal_log_in" onclick="clicButtonCloseModalLogIn()">Close</button>
+</div>
 </html>
