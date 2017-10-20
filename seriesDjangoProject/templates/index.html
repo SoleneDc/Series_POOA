@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     {% load staticfiles %}
-    <link type="text/css" href="{% static 'bootstrap.min.css' %}" />
-    <link type="text/css" href="{% static 'seriePOOA.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'seriePOOA.css' %}" />
      <script type="text/javascript" src="{% static 'jquery-3.2.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
@@ -12,6 +12,9 @@
     <title>Accueil</title>
 </head>
 <body>
+    <div >
+        <button class="button-login" onclick="clicButtonLogIn()">Log in</button>
+    </div>
     <div>
 
         <h2>Recherches dans notre base de données</h2>
@@ -55,7 +58,7 @@ Ceci est la page d'accueil et je la modifie en live !!!!!!!
 
 </body>
 
-<div class="modal fade" id="log_in_modal">
+<div class="modal" id="log_in_modal">
 
     {{ message }}
      <form id="authentication_form" action="/logIn/" method="post">

@@ -1,3 +1,6 @@
-conteneur-recherche-accueil{
+.conteneur-recherche-accueil{
     padding-top : 10px;
+}
+.button-login{
+    float : right;
 }
