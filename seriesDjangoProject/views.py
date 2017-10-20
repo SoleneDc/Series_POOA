@@ -6,11 +6,27 @@ from django.contrib.auth.models import User
 from .forms import *
 import services
 """This class defines the controllers for the application
-each fonction is supposed to process a page and send it to thhe url mapper"""
+each fonction is supposed to process a page and send it to the url mapper"""
 
 def index(request):
+    service = services.Services()
     template = loader.get_template('index.html')
-    return HttpResponse(template.render(request=request))
+    bestseries = service.discover_best_series()
+    context = {'bestseries' : bestseries}
+    return HttpResponse(template.render(request=request, context = context))
+
+# def index(request):
+#     service = services.Services()
+#     template = loader.get_template('index.html')
+#     bestseries = service.discover_best_series()
+#     context = {'bestseries' : bestseries}
+#     rank = 1
+#     for series in bestseries:
+#         context['betsteries'][rank] = series
+#         rank += 1
+#     return HttpResponse(template.render(request=request, context = context))
+
+
 
 def register(request):
     template = loader.get_template('register.html')
@@ -61,10 +77,17 @@ def searchResult(request):
     service = services.Services() #charge service
     template = loader.get_template('searchResult.html') #charge la page html
     #request.POST['search'] est la chaine de caractères entrée en recherche par l'user
-    response=service.search_series_names(request.POST['search']) #effectue la recherche et r&cupere la réponse
+    response=service.search_series_names(request.POST['search']) #effectue la recherche et récupere la réponse
     context={'response' : response}
     return HttpResponse(template.render(request=request, context=context))
 
 def welcome(request):
     template = loader.get_template('welcome.html')
     return HttpResponse(template.render(request=request))
+
+def discoverBestSeries(request):
+    service = services.Services()
+    template = loader.get_template('index.html')
+    bestseries = service.discover_best_series()
+    context = {'bestseries' : bestseries}
+    return HttpResponse(template.render(context = context))

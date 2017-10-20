@@ -55,6 +55,8 @@ class Season:
         self.overview = overview
         self.season_number = season_number
 
+
+#en fait on utilise pas ca :
     def __get__(self, instance, owner):
         '''TODO'''
 

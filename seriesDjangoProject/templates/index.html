@@ -16,5 +16,14 @@
     </form>
     <br/>
 Ceci est la page d'accueil et je la modifie en live !!!!!!!
+    <div>
+        <h2>Tops 20</h2>
+        <h3>Top 20 Séries :</h3>
+        <ul>{%  for series in bestseries %}
+            <li>{{series}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </body>
 </html>
