@@ -21,8 +21,9 @@ from seriesDjangoProject import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', views.index),
-    url(r'^search/', views.searchResult),
+    url(r'^search/', views.search),
     url(r'^register/', views.register),
     url(r'^welcome/', views.welcome),
-    url(r'^signIn/', views.signIn)
+    url(r'^signIn/', views.signIn),
+    url(r'^search_people/', views.search_people)
 ]

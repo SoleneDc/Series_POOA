@@ -16,6 +16,14 @@
     </form>
     <br/>
 Ceci est la page d'accueil et je la modifie en live !!!!!!!
+    <br>
+    <br>
+    <form action="/search_people/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="text" name="searchp"/>
+        <input type="submit" value="Submit" />
+    </form>
     <div>
         <h2>Tops 20</h2>
         <h3>Top 20 Séries :</h3>

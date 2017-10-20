@@ -42,13 +42,44 @@ def search(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('/searchResult/')
+            service = services.Services()  # charge service
+            template = loader.get_template('searchResult.html')  # charge la page html
+            # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
+            response = service.search_series_names(request.POST['search'])  # effectue la recherche et r&cupere la réponse
+            context = {'response': response}
+            return HttpResponse(template.render(request=request, context=context))
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = SearchForm(request.POST)
+        print (form.errors)
+
+    return render(request, 'index.html', {'form': form})
+
+def search_people(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = SearchForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            service = services.Services()  # charge service
+            template = loader.get_template('searchPeople.html')  # charge la page html
+            # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
+            response = service.search_people(request.POST['searchp'])  # effectue la recherche et r&cupere la réponse
+            context = {'response': response}
+            AFFICHAGE = HttpResponse(template.render(request=request, context=context))
+            for item in AFFICHAGE:
+
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SearchForm()
 
     return render(request, 'index.html', {'form': form})
+
 
 def signIn(request):
     # if this is a POST request we need to process the form data
@@ -72,14 +103,6 @@ def signIn(request):
 
     return render(request, 'index.html', {'form': form})
 
-
-def searchResult(request):
-    service = services.Services() #charge service
-    template = loader.get_template('searchResult.html') #charge la page html
-    #request.POST['search'] est la chaine de caractères entrée en recherche par l'user
-    response=service.search_series_names(request.POST['search']) #effectue la recherche et récupere la réponse
-    context={'response' : response}
-    return HttpResponse(template.render(request=request, context=context))
 
 def welcome(request):
     template = loader.get_template('welcome.html')

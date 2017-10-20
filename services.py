@@ -7,6 +7,7 @@ class Services:
     URL_BASE = "https://api.themoviedb.org/3/"
     KEY = "api_key=e4c6a6f5fbd60b0316b7ff30e73bec74"
     SEARCH = 'search/tv?'
+    SEARCHPEOPLE = 'search/person?'
     DISCOVER = 'discover/tv?'
     FIND = 'find/tv?'
 
@@ -26,12 +27,17 @@ class Services:
         return result
 
 
-    def researchPerson(self, Person):
+    def search_people(self, query):
         """
         Returns XXX to check
         """
-        url_search_person = Services.URL_BASE + '/search/person?api_key=' + Services.KEY + '>>&language=en-US&query=' + Person + '&include_adult=false'
-
+        url_final = Services.URL_BASE + Services.SEARCHPEOPLE + Services.KEY + '&query=' + query
+        req = requests.get(url_final)
+        result = []
+        print (req.json())
+        for item in req.json()['results']:
+            result.append(item['name'])
+        return result
 
     def discover_best_series(self):
         """
