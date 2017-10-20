@@ -8,29 +8,45 @@
     <title>Accueil</title>
 </head>
 <body>
-    <form action="/search/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="text" name="search"/>
-        <input type="submit" value="Submit" />
-    </form>
+    <div>
+
+        <h2>Recherches dans notre base de données</h2>
+
+        <h3>Rechercher une série</h3>
+
+            <form action="/search/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="text" name="search"/>
+            <input type="submit" value="Rechercher" />
+            </form>
+
+        <h3>Rechercher une personne</h3>
+
+            <form action="/search_people/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="text" name="searchp"/>
+            <input type="submit" value="Rechercher" />
+            </form>
+
+    </div>
+
     <br/>
 Ceci est la page d'accueil et je la modifie en live !!!!!!!
     <br>
-    <br>
-    <form action="/search_people/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="text" name="searchp"/>
-        <input type="submit" value="Submit" />
-    </form>
+
     <div>
+
         <h2>Tops 20</h2>
+
         <h3>Top 20 Séries :</h3>
+
         <ul>{%  for series in bestseries %}
             <li>{{series}}</li>
             {% endfor %}
         </ul>
+
     </div>
 
 </body>
