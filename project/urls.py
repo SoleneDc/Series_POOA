@@ -26,8 +26,7 @@ urlpatterns = [
     url(r'^register/', views.register),
     url(r'^welcome/', views.welcome),
     url(r'^signIn/', views.signIn),
-    url(r'^search_people/', views.search_people)
-]
+    url(r'^search_people/', views.search_people),
     url(r'^logIn/', views.logIn),
     url(r'^signIn/', views.signIn)
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
