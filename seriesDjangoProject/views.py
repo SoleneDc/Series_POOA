@@ -5,6 +5,7 @@ from django.template import loader
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from .forms import *
+import json
 import services
 """This class defines the controllers for the application
 each fonction is supposed to process a page and send it to the url mapper"""
@@ -118,9 +119,10 @@ def logIn(request):
     user = authenticate(username=request.POST['user_name'], password=request.POST['password'])
     if user is not None:
         request.session['member_id'] = user.id
-        template = loader.get_template('welcome.html')
-        return HttpResponse(template.render(request=request))
+        json_response = {'status': 'OK', 'user': {'name': user.first_name, 'member_id' : user.id}}
+        return HttpResponse(json.dumps(json_response),
+                            content_type='application/json')
     else:
-        template = loader.get_template('index.html')
-        context= {'message': "invalid authentication" }
-        return HttpResponse(template.render(request=request, context=context))
+        json_response = {'status': 'KO'}
+        return HttpResponse(json.dumps(json_response),
+                            content_type='application/json')

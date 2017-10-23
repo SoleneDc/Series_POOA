@@ -67,6 +67,8 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATES_DIRS =('seriesDjangoProject/templates')
+
 WSGI_APPLICATION = 'project.wsgi.application'
 
 

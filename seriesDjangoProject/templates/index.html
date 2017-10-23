@@ -8,15 +8,60 @@
     <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
 
+
     <meta charset="UTF-8">
-    <title>Accueil</title>
+    <title<SeriesPOOA</title>
 </head>
 <body>
-    <div >
-        <button class="button-login" onclick="clicButtonLogIn()">Log in</button>
-    </div>
-    <div>
+<div id="header" class="">
+  {% if logged %}
+      Welcome back {{ userName }} !
+      {% else %}
+       <div >
+        <button class="btn btn-primary btn-lg button-login" data-toggle="modal" data-target="#log_in_modal">Log in</button>
+        </div>
+  {% endif %}
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="log_in_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Log in</h4>
+            </div>
+            <div class="modal-body">
+            {{ message }}
+                 <form id="authentication_form" action="/logIn/" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                     <div id="authentication_error" hidden="true">
+                         Wrong authentication !
+                     </div>
+                    <label for="user_name">Prénom</label>
+                    <input type="text" name="user_name"/>
+                    <br/>
+                    <label for="password">Password</label>
+                    <input type="password" name="password"/>
+                     <button onclick="logIn()">Log In</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+
+<div id="left_sidebar">
+
+</div>
+
+<div id="right_sidebar">
+
+</div>
+<div id="content">
+     <div>
         <h2>Recherches dans notre base de données</h2>
 
         <h3>Rechercher une série</h3>
@@ -36,15 +81,11 @@
             <input type="text" name="searchp"/>
             <input type="submit" value="Rechercher" />
             </form>
-
     </div>
-
     <br/>
 Ceci est la page d'accueil et je la modifie en live !!!!!!!
     <br>
-
     <div>
-
         <h2>Tops 20</h2>
 
         <h3>Top 20 Séries :</h3>
@@ -53,26 +94,9 @@ Ceci est la page d'accueil et je la modifie en live !!!!!!!
             <li>{{series}}</li>
             {% endfor %}
         </ul>
-
     </div>
+</div>
 
 </body>
 
-<div class="modal" id="log_in_modal">
-
-    {{ message }}
-     <form id="authentication_form" action="/logIn/" method="post">
-        {% csrf_token %}
-        {{ form }}
-
-        <label for="user_name">Prénom</label>
-        <input type="text" name="user_name"/>
-        <br/>
-        <label for="password">Password</label>
-        <input type="password" name="password"/>
-         <button  onclick="logIn()">Log In</button>
-    </form>
-
-    <button id="close_modal_log_in" onclick="clicButtonCloseModalLogIn()">Close</button>
-</div>
 </html>
