@@ -14,7 +14,8 @@ def index(request):
     service = services.Services()
     template = loader.get_template('index.html')
     bestseries = service.discover_best_series()
-    context = {'bestseries' : bestseries}
+    airingseries = service.discover_series_on_the_air()
+    context = {'bestseries' : bestseries, 'airingseries': airingseries}
     return HttpResponse(template.render(request=request, context = context))
 
 # def index(request):
@@ -96,13 +97,6 @@ def signIn(request):
 def welcome(request):
     template = loader.get_template('welcome.html')
     return HttpResponse(template.render(request=request))
-
-def discoverBestSeries(request):
-    service = services.Services()
-    template = loader.get_template('index.html')
-    bestseries = service.discover_best_series()
-    context = {'bestseries' : bestseries}
-    return HttpResponse(template.render(context = context))
 
 def logIn(request):
     user = authenticate(username=request.POST['user_name'], password=request.POST['password'])

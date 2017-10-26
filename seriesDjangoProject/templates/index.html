@@ -80,6 +80,7 @@
 
     </div>
     <div>
+
         <h2>Tops 20</h2>
 
         <h3>Top 20 Séries :</h3>
@@ -88,6 +89,14 @@
             <li>{{series}}</li>
             {% endfor %}
         </ul>
+
+        <h3>Top 20 Séries de la semaine :</h3>
+
+        <ul>{%  for series in airingseries %}
+            <li>{{series}}</li>
+            {% endfor %}
+        </ul>
+
     </div>
 </div>
 
