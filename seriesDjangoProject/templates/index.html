@@ -7,53 +7,17 @@
      <script type="text/javascript" src="{% static 'jquery-3.2.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
-
+    {% include  "blocUser.html" %}
 
     <meta charset="UTF-8">
     <title>SeriesPOOA</title>
 </head>
 <body>
 
-{% block blocUser %}
-{% endblock blocUser %}
 <div id="header" class="">
-  {% if logged %}
-      Welcome back {{ userName }} !
-      {% else %}
-       <div >
-        <button class="btn btn-primary btn-lg button-login" data-toggle="modal" data-target="#log_in_modal">Log in</button>
-        </div>
-  {% endif %}
+  {% block blocUser %}
+{% endblock blocUser %}
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="log_in_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Log in</h4>
-            </div>
-            <div class="modal-body">
-            {{ message }}
-                 <form id="authentication_form" action="/logIn/" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                     <div id="authentication_error" hidden="true">
-                         Wrong authentication !
-                     </div>
-                    <label for="user_name">Prénom</label>
-                    <input type="text" name="user_name"/>
-                    <br/>
-                    <label for="password">Password</label>
-                    <input type="password" name="password"/>
-                     <button onclick="logIn()">Log In</button>
-                </form>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 </div>
 
 <div id="left_sidebar">

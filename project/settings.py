@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATES_DIRS =('seriesDjangoProject/templates')
+TEMPLATES_DIRS =[os.path.join(BASE_DIR,'seriesDjangoProject/templates')]
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
