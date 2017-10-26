@@ -10,7 +10,7 @@
 
 
     <meta charset="UTF-8">
-    <title<SeriesPOOA</title>
+    <title>SeriesPOOA</title>
 </head>
 <body>
 <div id="header" class="">
@@ -64,27 +64,20 @@
      <div>
         <h2>Recherches dans notre base de données</h2>
 
-        <h3>Rechercher une série</h3>
+        <h3>Rechercher une série ou une personne</h3>
 
             <form action="/search/" method="post">
             {% csrf_token %}
             {{ form }}
+            <label> People </label><input type="radio" name="tick" value="people"><br>
+            <label> Series </label><input type="radio" name="tick" value="series"><br>
             <input type="text" name="search"/>
             <input type="submit" value="Rechercher" />
             </form>
 
-        <h3>Rechercher une personne</h3>
-
-            <form action="/search_people/" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="text" name="searchp"/>
-            <input type="submit" value="Rechercher" />
-            </form>
     </div>
-    <br/>
-Ceci est la page d'accueil et je la modifie en live !!!!!!!
-    <br>
+
+
     <div>
         <h2>Tops 20</h2>
 
