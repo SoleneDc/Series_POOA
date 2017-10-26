@@ -10,7 +10,7 @@ class Services:
     SEARCHPEOPLE = 'search/person?'
     DISCOVER = 'discover/tv?'
     FIND = 'find/tv?'
-    CHARMED_TVID = 1981
+    CHARMED_TVID = 1981 #information given for testing
     TIMEZONE = 'FR'
 
     def __init__(self):
@@ -50,8 +50,17 @@ class Services:
         result = []
         for item in req.json()['results']:
             result.append(item['name'])
-        print("The {} most popular series are: ".format(len(result)))
-        print(result)
+        return result
+
+    def discover_series_on_the_air(self):
+        """
+        Functions that returns a list of 20 most popular series on the air within the next 7 days, sorted by popularity
+        """
+        url_final = Services.URL_BASE + 'tv/on_the_air?' + Services.KEY + '&page=1'
+        req = requests.get(url_final)
+        result = []
+        for item in req.json()['results']:
+            result.append(item['name'])
         return result
 
     def get_genres(self):
@@ -67,5 +76,5 @@ class Services:
 
 
     def effacerFavori(self, user):
-        """TODO : fonction qui efface les favori d'un user"""
+        """TODO : fonction qui efface les favoris d'un user"""
 
