@@ -62,6 +62,19 @@
         </ul>
 
     </div>
+
+    <div>
+        <h2>Genres</h2>
+
+        <form>{% for item in dict_genres %}
+            <select name = "genre">
+               <option value = "{{ item.value }}"></option>
+            </select>
+
+        </form>
+
+    </div>
+    </div>
 </div>
 
 </body>

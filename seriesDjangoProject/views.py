@@ -18,19 +18,6 @@ def index(request):
     context = {'bestseries' : bestseries, 'airingseries': airingseries}
     return HttpResponse(template.render(request=request, context = context))
 
-# def index(request):
-#     service = services.Services()
-#     template = loader.get_template('index.html')
-#     bestseries = service.discover_best_series()
-#     context = {'bestseries' : bestseries}
-#     rank = 1
-#     for series in bestseries:
-#         context['betsteries'][rank] = series
-#         rank += 1
-#     return HttpResponse(template.render(request=request, context = context))
-
-
-
 def register(request):
     template = loader.get_template('register.html')
     return HttpResponse(template.render(request=request))
@@ -112,3 +99,6 @@ def logIn(request):
 def logout(request):
     logout()
 
+def genre(request):
+    #rajouter ici une fonction qui renvoie la liste des genres
+    return True

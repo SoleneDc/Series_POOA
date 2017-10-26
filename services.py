@@ -78,6 +78,8 @@ class Services:
         return result
 
 
+
     def effacerFavori(self, user):
         """TODO : fonction qui efface les favoris d'un user"""
+
 
