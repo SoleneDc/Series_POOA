@@ -9,34 +9,110 @@ url = "https://api.themoviedb.org/3/"
 url_discover_key = "https://api.themoviedb.org/3/discover/tv?api_key=e4c6a6f5fbd60b0316b7ff30e73bec74&language=en-US&sort_by=popularity.desc"
 key = "e4c6a6f5fbd60b0316b7ff30e73bec74"
 
-req = requests.get(url_discover_key)
-pprint(req.json())
+#req = requests.get(url_discover_key)
+#pprint(req.json())
 
 
 class Serie:
-    '''Class defining a Series'''
-    def __init__(self, id,  episode_run_time, first_air_date, genres, in_production, languages, last_air_date, name,
-                 networks, episodes, seasons, origin_country, original_language, original_name,
-                 overview, popularity, production_companies, vote_avg, vote_count):
-        self.id = id
-        self.episode_run_time = episode_run_time
-        self.first_air_date = first_air_date
-        self.genres = genres
-        self.in_production = in_production
-        self.languages = languages
-        self.last_air_date = last_air_date
-        self.name = name
-        self.networks = networks
-        self.episodes = episodes
-        self.seasons = seasons
-        self.origin_country = origin_country
-        self.original_language = original_language
-        self.original_name = original_name
-        self.overview = overview
-        self.popularity = popularity
-        self.production_companies = production_companies
-        self.vote_avg = vote_avg
-        self.vote_count = vote_count
+    """Class defining a Series"""
+    def __init__(self, tv_id, genres, name, episodes, seasons, overview, popularity, vote_avg, vote_count):
+        self._tv_id = tv_id
+#        self._episode_run_time = episode_run_time
+#        self._first_air_date = first_air_date
+        self._genres = genres
+#        self._in_production = in_production
+#        self._languages = languages
+#        self._last_air_date = last_air_date
+        self._name = name
+#        self._networks = networks
+        self._episodes = episodes
+        self._seasons = seasons
+#        self._origin_country = origin_country
+#        self._original_language = original_language
+#        self._original_name = original_name
+        self._overview = overview
+        self._popularity = popularity
+#        self._production_companies = production_companies
+        self._vote_avg = vote_avg
+        self._vote_count = vote_count
+
+
+# Series Getter :
+    @property
+    def tv_id(self):
+        return self._tv_id
+
+    @property
+    def genres(self):
+        return self._genres
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def episodes(self):
+        return self._episodes
+
+    @property
+    def seasons(self):
+        return self._seasons
+
+    @property
+    def overview(self):
+        return self._overview
+
+    @property
+    def popularity(self):
+        return self._popularity
+
+    @property
+    def vote_avg(self):
+        return self._vote_avg
+
+    @property
+    def vote_count(self):
+        return self._vote_count
+
+# Series Setter :
+    @tv_id.setter
+    def tv_id(self, value):
+        self._tv_id = value
+
+    @genres.setter
+    def genres(self, value):
+        self._genres = value
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @episodes.setter
+    def episodes(self, value):
+        self._episodes = value
+
+    @seasons.setter
+    def seasons(self, value):
+        self._seasons = value
+
+    @overview.setter
+    def overview(self, value):
+        self._overview = value
+
+    @popularity.setter
+    def popularity(self, value):
+        self._popularity = value
+
+    @vote_avg.setter
+    def vote_avg(self, value):
+        self._vote_avg = value
+
+    @vote_count.setter
+    def vote_count(self, value):
+        self._vote_count = value
+
+
+
 
     def __get__(self, instance, owner):
         '''TODO'''

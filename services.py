@@ -10,6 +10,8 @@ class Services:
     SEARCHPEOPLE = 'search/person?'
     DISCOVER = 'discover/tv?'
     FIND = 'find/tv?'
+    CHARMED_TVID = 1981
+    TIMEZONE = 'FR'
 
     def __init__(self):
         pass
@@ -52,19 +54,15 @@ class Services:
         print(result)
         return result
 
-    def discover_best_series_bis(self):
+    def get_genres(self):
         """
-        Function that gives the user the 20 most popular series (there are 20 series displayed by page)
+        Function that returns the list of series genres available on TMDB. It allows us to stay up-to-date about all the genres they list.
         """
-        url_final = Services.URL_BASE + Services.DISCOVER + Services.KEY + '&sort_by=popularity.desc&page=1&include_null_first_air_dates=false'
+        url_final = Services.URL_BASE + 'genre/tv/list?' + Services.KEY
         req = requests.get(url_final)
         result = {}
-        key = 1
-        for item in req.json()['results']:
-            result[key] = item['name']
-            key +=1
-        print("The {} most popular series are: ".format(len(result)))
-        print(result)
+        for item in req.json()['genres']:
+            result[item['id']] = item['name']
         return result
 
 
