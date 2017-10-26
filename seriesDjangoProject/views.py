@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import *
 from .forms import *
 import json
 import services
@@ -115,3 +115,6 @@ def logIn(request):
         json_response = {'status': 'KO'}
         return HttpResponse(json.dumps(json_response),
                             content_type='application/json')
+def logout(request):
+    logout()
+

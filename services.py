@@ -1,4 +1,6 @@
 import requests
+from seriesDjangoProject.models.class_series import Serie
+from collections import namedtuple
 from datetime import datetime, date, timedelta
 from pprint import pprint
 
@@ -25,7 +27,8 @@ class Services:
         req = requests.get(url_final)
         result = []
         for item in req.json()['results']:
-            result.append(item['name'])
+            x = Serie(item)
+            result.append(x)
         return result
 
 

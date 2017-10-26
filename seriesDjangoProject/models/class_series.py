@@ -2,6 +2,7 @@
 
 
 import requests
+import json
 from datetime import datetime, date, timedelta
 from pprint import pprint
 
@@ -15,26 +16,10 @@ key = "e4c6a6f5fbd60b0316b7ff30e73bec74"
 
 class Serie:
     """Class defining a Series"""
-    def __init__(self, tv_id, genres, name, episodes, seasons, overview, popularity, vote_avg, vote_count):
-        self._tv_id = tv_id
-#        self._episode_run_time = episode_run_time
-#        self._first_air_date = first_air_date
-        self._genres = genres
-#        self._in_production = in_production
-#        self._languages = languages
-#        self._last_air_date = last_air_date
-        self._name = name
-#        self._networks = networks
-        self._episodes = episodes
-        self._seasons = seasons
-#        self._origin_country = origin_country
-#        self._original_language = original_language
-#        self._original_name = original_name
-        self._overview = overview
-        self._popularity = popularity
-#        self._production_companies = production_companies
-        self._vote_avg = vote_avg
-        self._vote_count = vote_count
+    def __init__(self, dict):
+        for k,v in dict.items():
+            setattr(self, k, v)
+
 
 
 # Series Getter :

@@ -13,6 +13,9 @@
     <title>SeriesPOOA</title>
 </head>
 <body>
+
+{% block blocUser %}
+{% endblock blocUser %}
 <div id="header" class="">
   {% if logged %}
       Welcome back {{ userName }} !
@@ -76,8 +79,6 @@
             </form>
 
     </div>
-
-
     <div>
         <h2>Tops 20</h2>
 
