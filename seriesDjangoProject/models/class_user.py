@@ -10,3 +10,6 @@ class User(models.Model):
     gender = models.CharField(max_length=1)
     #picture
 
+    def __init__(self, id):
+        """Ce constructeur"""
+

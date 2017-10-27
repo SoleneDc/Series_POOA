@@ -7,16 +7,13 @@
      <script type="text/javascript" src="{% static 'jquery-3.2.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
-    {% include  "blocUser.html" %}
 
     <meta charset="UTF-8">
     <title>SeriesPOOA</title>
 </head>
 <body>
-
 <div id="header" class="">
-  {% block blocUser %}
-{% endblock blocUser %}
+  {%  include 'blocUser.html' %}
 
 </div>
 
@@ -28,20 +25,8 @@
 
 </div>
 <div id="content">
-     <div>
-        <h2>Recherches dans notre base de données</h2>
-
-        <h3>Rechercher une série ou une personne</h3>
-
-            <form action="/search/" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <label> People </label><input type="radio" name="tick" value="people"><br>
-            <label> Series </label><input type="radio" name="tick" value="series"><br>
-            <input type="text" name="search"/>
-            <input type="submit" value="Rechercher" />
-            </form>
-
+    <div>
+        {% include 'searchResult.html' %}
     </div>
     <div>
 
@@ -66,9 +51,11 @@
     <div>
         <h2>Genres</h2>
 
-        <form>{% for item in dict_genres %}
+        <form>
             <select name = "genre">
+            {% for item in dict_genres %}
                <option value = "{{ item.value }}"></option>
+                {% endfor %}
             </select>
 
         </form>

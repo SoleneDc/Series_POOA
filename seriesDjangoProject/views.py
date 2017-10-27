@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.contrib.auth.models import User
 from django.contrib.auth import *
+from django.core import serializers
 from .forms import *
 import json
 import services
@@ -88,16 +89,18 @@ def welcome(request):
 def logIn(request):
     user = authenticate(username=request.POST['user_name'], password=request.POST['password'])
     if user is not None:
-        request.session['member_id'] = user.id
-        json_response = {'status': 'OK', 'user': {'name': user.first_name, 'member_id' : user.id}}
+        user ={'first_name': user.first_name, 'id' : user.id, 'last_name' : user.last_name}
+        request.session['user'] = user
+        json_response = {'status': 'OK', 'user': user}
         return HttpResponse(json.dumps(json_response),
                             content_type='application/json')
     else:
         json_response = {'status': 'KO'}
         return HttpResponse(json.dumps(json_response),
                             content_type='application/json')
-def logout(request):
-    logout()
+def logOut(request):
+    logout(request)
+    return index(request)
 
 def genre(request):
     #rajouter ici une fonction qui renvoie la liste des genres

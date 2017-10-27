@@ -1,11 +1,17 @@
-
 {% block blocUser %}
-     {% if logged %}
-      Welcome back {{ userName }} !
+     {% if request.session.user is not None %}
+      Welcome back {{ user.first_name }} {{ user.last_name }} of id {{ user.id }}!
+         <a href="/logout/">Log out</a>
       {% else %}
-       <div >
-        <button class="btn btn-primary btn-lg button-login" data-toggle="modal" data-target="#log_in_modal">Log in</button>
-        </div>
+       <div class="block-login" >
+           <div class="row col-xs-12 col-md-12">
+                       <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#log_in_modal">Log in</button>
+           </div>
+           <div class="row col-xs-12 col-md-12">
+            <a href="/register/">Sign in</a>
+           </div>
+       </div>
+
   {% endif %}
 
 

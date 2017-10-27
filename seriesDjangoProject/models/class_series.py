@@ -33,7 +33,7 @@ class Serie:
 
     @property
     def name(self):
-        return self._name
+        return "Access denied"
 
     @property
     def episodes(self):

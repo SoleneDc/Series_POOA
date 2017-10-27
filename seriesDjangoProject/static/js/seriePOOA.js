@@ -25,6 +25,11 @@ function logIn(){
       success: function(data){
           if(data.status=="OK"){
                console.log("Bientôt on fera la redirection");
+              window.location.href=/index/
+
+
+
+
           }else if(data.status=="KO"){
               $('#authentication_error').attr('hidden',false);
           }
