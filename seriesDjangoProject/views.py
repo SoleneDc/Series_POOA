@@ -30,12 +30,16 @@ def search(request):
         form = SearchForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
+
             if request.POST.get('tick')=="series":
                 service = services.Services()  # charge service
                 template = loader.get_template('searchResult.html')  # charge la page html
                 # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
-                response = service.search_series_names(
-                    request.POST['search'])  # effectue la recherche et r&cupere la réponse
+                serie_id = service.get_IDs(
+                    request.POST['search']) # effectue la recherche et r&cupere lID
+                response = []
+                for i in range(0,len(serie_id)):
+                        response.append(service.get_serie(serie_id[i]))
                 context = {'response': response}
                 return HttpResponse(template.render(request=request, context=context))
 

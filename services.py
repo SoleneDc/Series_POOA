@@ -3,6 +3,7 @@ from seriesDjangoProject.models.class_series import Serie
 from collections import namedtuple
 from datetime import datetime, date, timedelta
 from pprint import pprint
+import json
 
 
 class Services:
@@ -10,6 +11,7 @@ class Services:
     KEY = "api_key=e4c6a6f5fbd60b0316b7ff30e73bec74"
     SEARCH = 'search/tv?'
     SEARCHPEOPLE = 'search/person?'
+    GET_TV = 'tv/'
     DISCOVER = 'discover/tv?'
     FIND = 'find/tv?'
     CHARMED_TVID = 1981 #information given for testing
@@ -31,6 +33,21 @@ class Services:
             result.append(x)
         return result
 
+    def get_serie(self, query):
+
+        url_final = Services.URL_BASE + Services.GET_TV + str(query) + '?' + Services.KEY
+        req = requests.get(url_final)
+        x = Serie(req.json())
+        return x
+
+    def get_IDs(self, query):
+
+        url_final = Services.URL_BASE + Services.SEARCH + Services.KEY + '&query=' + query
+        req = requests.get(url_final)
+        result = []
+        for item in req.json()['results']:
+            result.append(item['id'])
+        return result
 
     def search_people(self, query):
         """

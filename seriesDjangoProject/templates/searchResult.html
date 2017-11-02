@@ -28,12 +28,12 @@
         Page de résultat de la recherche, voici les résultats : </br> </br>
         <ul>
         {% for item in response %}
-            <li><ul><b>{{item.name}}</b>
+            <b>{{item.name}}</b>
                 <li>{{item.overview}}</li>
                 <li> <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" width="161" height="240"
                  alt="Image de la série" /> </li>
                 <li>{{item.vote_count}}</li>
-            </ul></li>
+            </ul>
             <br>
         {% endfor %}
         </ul>
