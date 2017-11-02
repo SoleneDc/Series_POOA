@@ -104,4 +104,6 @@ def logOut(request):
 
 def genre(request):
     #rajouter ici une fonction qui renvoie la liste des genres
+    service = services.Services()
+
     return True

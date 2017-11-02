@@ -12,55 +12,29 @@
     <title>SeriesPOOA</title>
 </head>
 <body>
-<div id="header" class="">
+<div id="header" class="row col-xs-12 col-md-12">
   {%  include 'blocUser.html' %}
 
 </div>
-
-<div id="left_sidebar">
-
-</div>
-
-<div id="right_sidebar">
-
-</div>
-<div id="content">
-    <div>
+<div id="content" class="row col-xs-12 col-md-12">
+    <div class = "searchResult col-xs-6 col-md-6">
         {% include 'searchResult.html' %}
     </div>
-    <div>
-
-        <h2>Tops 20</h2>
-
-        <h3>Top 20 Séries :</h3>
-
-        <ul>{%  for series in bestseries %}
-            <li>{{series}}</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Top 20 Séries de la semaine :</h3>
-
-        <ul>{%  for series in airingseries %}
-            <li>{{series}}</li>
-            {% endfor %}
-        </ul>
-
-    </div>
-
-    <div>
-        <h2>Genres</h2>
-
-        <form>
-            <select name = "genre">
-            {% for item in dict_genres %}
-               <option value = "{{ item.value }}"></option>
+    <div class = "col-xs-3 col-md-3">
+            <h2>Tops 20</h2>
+            <h3>Top 20 Séries :</h3>
+            <ul>{%  for series in bestseries %}
+                <li>{{series}}</li>
                 {% endfor %}
-            </select>
-
-        </form>
-
+            </ul>
+            <h3>Top 20 Séries de la semaine :</h3>
+            <ul>{%  for series in airingseries %}
+                <li>{{series}}</li>
+                {% endfor %}
+            </ul>
     </div>
+
+
     </div>
 </div>
 
