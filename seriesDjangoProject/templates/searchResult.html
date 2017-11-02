@@ -6,7 +6,7 @@
                 {% csrf_token %}
                 {{ form }}
                 <label> People </label><input type="radio" name="tick" value="people"><br>
-                <label> Series </label><input type="radio" name="tick" value="series"><br>
+                <label> Series </label><input type="radio" name="tick" value="series" checked="checked"><br>
                 <input type="text" name="search"/>
                 <input type="submit" value="Rechercher"/>
             </form>

@@ -40,9 +40,9 @@ def search(request):
                 return HttpResponse(template.render(request=request, context=context))
 
             elif request.POST.get('tick')=="people":
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
+                # process the data in form.cleaned_data as required
+                # ...
+                # redirect to a new URL:
                 service = services.Services()  # charge service
                 template = loader.get_template('searchPeople.html')  # charge la page html
                 # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
@@ -66,14 +66,17 @@ def signIn(request):
         form = RegisterForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:*
-            user = User.objects.create_user(form.data['first_name'], form.data['email'], form.data['password'])
-            user.last_name = form.data['last_name']
-            user.save()
-            context={'name' : user.first_name}
-            return HttpResponseRedirect('/welcome/')
+            if User.objects.filter(username =form.data['first_name']).exists()==False:
+                # process the data in form.cleaned_data as required
+                # ...
+                # redirect to a new URL:*
+                user = User.objects.create_user(form.data['first_name'], form.data['email'], form.data['password'])
+                user.last_name = form.data['last_name']
+                user.save()
+                context={'name' : user.first_name}
+                return HttpResponseRedirect('/welcome/')
+#            else:
+#                return HttpResponseRedirect()
 
     # if a GET (or any other method) we'll create a blank form
     else:
