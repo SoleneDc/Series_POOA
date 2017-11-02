@@ -29,6 +29,7 @@ def search(request):
         # create a form instance and populate it with data from the request:
         form = SearchForm(request.POST)
         # check whether it's valid:
+        #hello
         if form.is_valid():
 
             if request.POST.get('tick')=="series":
