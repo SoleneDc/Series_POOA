@@ -134,7 +134,10 @@ def addToFavorites(request, id):
 def removeFromFavorites(request, id):
     service = services.Services()
     serie = service.get_serie(query = id)
-    result = service.removeFromFavorites(request.user, serie)
+    user = request.session['user']
+    user_id = user['id']
+    full_user = User.objects.get(id=user_id)
+    result = service.removeFromFavorites(full_user, serie)
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
