@@ -5,7 +5,6 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
-
 from seriesDjangoProject import services
 from .forms import *
 
@@ -20,9 +19,6 @@ def index(request):
     context = {'bestseries' : bestseries, 'airingseries': airingseries}
     return HttpResponse(template.render(request=request, context = context))
 
-def register(request):
-    template = loader.get_template('register.html')
-    return HttpResponse(template.render(request=request))
 
 def search(request):
     # if this is a POST request we need to process the form data
@@ -73,16 +69,16 @@ def signIn(request):
         form = RegisterForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            if User.objects.filter(username =form.data['first_name']).exists()==False:
+            if User.objects.filter(username =form.data['username']).exists()==False:
                 # process the data in form.cleaned_data as required
                 # ...
                 # redirect to a new URL:*
-                user = User.objects.create_user(form.data['first_name'], form.data['email'], form.data['password'])
-                user.last_name = form.data['last_name']
+                user = User.objects.create_user(form.data['username'], form.data['email'], form.data['password'])
                 user.save()
-                context={'name' : user.first_name}
+                context = {'name': user.username}
                 return HttpResponseRedirect('/welcome/')
-#            else:
+#
+            #             else:
 #                return HttpResponseRedirect()
 
     # if a GET (or any other method) we'll create a blank form

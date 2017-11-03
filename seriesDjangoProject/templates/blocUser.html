@@ -13,15 +13,14 @@
                <div class="col-xs-12 col-md-12">
                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#log_in_modal">Log in</button>
                </div>
-               <div class="row col-xs-12 col-md-12">
-                <a href="/register/">Sign in</a>
-               </div>
-           </div>
+        <div class="block-signin">
+            <div class="row col-xs-12 col-md-12">
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sign_in_modal">Sign in</button>
+            </div>
+        </div>
 
       {% endif %}
         </div>
-
-
     </div>
 
 
@@ -41,7 +40,7 @@
                      <div id="authentication_error" hidden="true">
                          Wrong authentication !
                      </div>
-                    <label for="user_name">Prénom</label>
+                    <label for="user_name">Username</label>
                     <input type="text" name="user_name"/>
                     <br/>
                     <label for="password">Password</label>
@@ -52,4 +51,31 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-    {% endblock blocUser %}
+<div class="modal fade" id="sign_in_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Sign in</h4>
+            </div>
+            <div class="modal-body">
+            {{ message }}
+                 <form id="registration_form" action="/signIn/" method="post">
+                     {% csrf_token %}
+                     {{ form }}
+                     <label for="username">Username</label>
+                     <input type="text" name="username"/>
+                     <br/>
+                     <label for="email">Email</label>
+                     <input type="text" name="email"/>
+                     <br/>
+                     <label for="password">Password</label>
+                     <input type="password" name="password"/>
+                     <button onclick="signIn()">Sign In</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% endblock blocUser %}
