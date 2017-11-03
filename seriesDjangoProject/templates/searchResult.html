@@ -35,9 +35,9 @@
         {% for item in response %}
             <h2>{{item.name}}
                 {% if item.isFavorite %}
-                    <a class ="glyphicon glyphicon-star" href="/removeFromFavorites/{{ item.id }}"></a>
+                    <a class ="glyphicon glyphicon-star" onclick="clickButtonRemoveFromFavorites({{ item.id }})"></a>
                 {% else %}
-                     <a class ="glyphicon glyphicon-star-empty" href="/addToFavorites/{{ item.id }}"></a>
+                     <a class ="glyphicon glyphicon-star-empty" onclick="clickButtonAddToFavorites({{ item.id }})"></a>
                 {% endif %}
             </h2>
                 <li>{{item.overview}}</li>

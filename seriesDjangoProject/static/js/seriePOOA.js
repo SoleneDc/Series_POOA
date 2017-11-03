@@ -24,7 +24,6 @@ function logIn(){
       data: form.serialize(),
       success: function(data){
           if(data.status=="OK"){
-               console.log("Bientôt on fera la redirection");
               window.location.href=/index/
 
 
@@ -39,5 +38,43 @@ function logIn(){
           console.log("Unkown error")
 
       }
-});
+    });
+}
+
+function clickButtonRemoveFromFavorites(serie_id){
+ url = '/removeFromFavorites/' + serie_id
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function(data){
+          if(data.status=="OK"){
+              location.reload();
+          }else if(data.status=="KO"){
+              alert("Unknown error");
+          }
+      },
+      error:function(data){
+          console.log("Unknown error");
+
+      }
+    });
+}
+
+function clickButtonAddToFavorites(serie_id){
+    url = '/addToFavorites/' + serie_id
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function(data){
+          if(data.status=="OK"){
+              location.reload();
+          }else if(data.status=="KO"){
+              alert("Unknown error");
+          }
+      },
+      error:function(data){
+          console.log("Unknown error");
+
+      }
+    });
 }
