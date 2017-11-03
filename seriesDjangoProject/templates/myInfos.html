@@ -1,0 +1,11 @@
+{% block blocPerso %}
+    <div class="row col-xs-12 col-md-12">
+       <h3>My favorite series :</h3>
+            <ul>{%  for series in favoriteListe %}
+                <li>{{series}}</li>
+                {% endfor %}
+            </ul>
+    </div>
+
+
+{% endblock blocPerso %}
