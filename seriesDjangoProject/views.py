@@ -38,7 +38,7 @@ def search(request):
                 response = []
                 for i in range(0,len(serie_id)):
                         response.append(service.get_serie(serie_id[i]))
-                response = service.joinInfoAboutFavoriteToSerieList(response,request.session['user']['id'])
+                response = service.join_info_about_favorite_to_serie_list(response, request.session['user']['id'])
                 context = {'response': response}
                 return HttpResponse(template.render(request=request, context=context))
 
@@ -77,20 +77,19 @@ def signIn(request):
                 user.save()
                 context = {'name': user.username}
                 return HttpResponseRedirect('/welcome/')
-#
-            #             else:
-#                return HttpResponseRedirect()
-
+            else:
+                context = {'name': form.data['username']}
+                return HttpResponse("Sorry, this username is already taken.")
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RegisterForm()
-
     return render(request, 'index.html', {'form': form})
 
 
 def welcome(request):
     template = loader.get_template('welcome.html')
     return HttpResponse(template.render(request=request))
+
 
 def logIn(request):
     user = authenticate(username=request.POST['user_name'], password=request.POST['password'])
@@ -104,15 +103,18 @@ def logIn(request):
         json_response = {'status': 'KO'}
         return HttpResponse(json.dumps(json_response),
                             content_type='application/json')
+
+
 def logOut(request):
     logout(request)
     return index(request)
 
+
 def genre(request):
     #rajouter ici une fonction qui renvoie la liste des genres
     service = services.Services()
-
     return True
+
 
 def addToFavorites(request, id):
     service = services.Services()
@@ -120,17 +122,20 @@ def addToFavorites(request, id):
     user=request.session['user']
     user_id=user['id']
     full_user= User.objects.get(id= user_id)
-    result = service.addToFavorites(full_user,serie)
+    result = service.add_to_favorites(full_user, serie)
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
+
+
 def removeFromFavorites(request, id):
     service = services.Services()
     serie = service.get_serie(query = id)
     user = request.session['user']
     user_id = user['id']
     full_user = User.objects.get(id=user_id)
-    result = service.removeFromFavorites(full_user, serie)
+    result = service.remove_from_favorites(full_user, serie)
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
+

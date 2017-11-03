@@ -42,7 +42,7 @@ function logIn(){
 }
 
 function clickButtonRemoveFromFavorites(serie_id){
- url = '/removeFromFavorites/' + serie_id
+ url = '/remove_from_favorites/' + serie_id
     $.ajax({
       type: "GET",
       url: url,
@@ -61,7 +61,7 @@ function clickButtonRemoveFromFavorites(serie_id){
 }
 
 function clickButtonAddToFavorites(serie_id){
-    url = '/addToFavorites/' + serie_id
+    url = '/add_to_favorites/' + serie_id
     $.ajax({
       type: "GET",
       url: url,

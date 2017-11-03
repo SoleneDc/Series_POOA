@@ -32,11 +32,10 @@ class Services:
         return result
 
     def get_serie(self, query):
-
+        """?"""
         url_final = Services.URL_BASE + Services.GET_TV + str(query) + '?' + Services.KEY
         req = requests.get(url_final)
         x = Serie(req.json())
-
         return x
 
     def get_IDs(self, query):
@@ -93,25 +92,37 @@ class Services:
             result[item['id']] = item['name']
         return result
 
-    def removeFromFavorites(self, user, serie):
+    def remove_from_favorites(self, user, serie):
         if user.is_anonymous:
             raise exception.AuthenticationException
         else:
            SeriesUser.objects.filter(user_id=user.id, serie_id=serie.id).delete()
         return 'OK'
 
-    def addToFavorites(self, user, serie):
+    def add_to_favorites(self, user, serie):
         if user.is_anonymous:
             raise exception.AuthenticationExeption
         else:
-            newEntry=SeriesUser(user_id=user.id,serie_id=serie.id)
+            newEntry = SeriesUser(user_id=user.id,serie_id=serie.id)
             newEntry.save()
             return 'OK'
 
-    def joinInfoAboutFavoriteToSerieList(self, series, user_id):
+    def join_info_about_favorite_to_serie_list(self, series, user_id):
         result = []
         for serie in series:
             if SeriesUser.objects.filter(user_id=user_id, serie_id=serie.id).all().__len__()>=1:
-                serie.isFavorite=True
+                serie.isFavorite = True
             result.append(serie)
         return result
+
+    #ne marche pas trop...
+    def get_favorite_series_id(self, user_id):
+        """
+        Function that returns a list of series given an ID
+        """
+        result = SeriesUser.objects.filter(user_id = user_id)
+        url_final = Services.URL_BASE + Services.GET_TV + '{tv_id}?' + Services.KEY
+        return result
+
+
+Services().get_favorite_series_id('Pauline')
