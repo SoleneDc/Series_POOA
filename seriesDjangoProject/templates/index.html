@@ -17,10 +17,14 @@
 
 </div>
 <div id="content" class="row col-xs-12 col-md-12">
-    <div class = "searchResult col-xs-6 col-md-6">
+    <div id="leftSideBar" class="col-xs-3 col-md-3">
+
+
+    </div>
+    <div id=" middlePanel"class = "searchResult col-xs-6 col-md-6">
         {% include 'searchResult.html' %}
     </div>
-    <div class = "col-xs-3 col-md-3">
+    <div id="rightSideBar" class = "col-xs-3 col-md-3">
             <h2>Tops 20</h2>
             <h3>Top 20 Séries :</h3>
             <ul>{%  for series in bestseries %}
@@ -32,9 +36,6 @@
                 <li>{{series}}</li>
                 {% endfor %}
             </ul>
-    </div>
-
-
     </div>
 </div>
 

@@ -79,9 +79,6 @@ def signIn(request):
                 # redirect to a new URL:*
                 user = User.objects.create_user(form.data['first_name'], form.data['email'], form.data['password'])
                 user.last_name = form.data['last_name']
-                user_profile = UserProfile()
-                user_profile.user=user
-                user_profile.save()
                 user.save()
                 context={'name' : user.first_name}
                 return HttpResponseRedirect('/welcome/')
