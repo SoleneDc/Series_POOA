@@ -115,7 +115,7 @@ class Services:
             result.append(serie)
         return result
 
-    #ne marche pas trop...
+    #ne marche pas trop
     def get_favorite_series_id(self, user_id):
         """
         Function that returns a list of series given an ID
@@ -125,4 +125,4 @@ class Services:
         return result
 
 
-Services().get_favorite_series_id('Pauline')
+#Services().get_favorite_series_id('Pauline')
