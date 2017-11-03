@@ -1,10 +1,7 @@
 # Find here the class Series and maybe the class Review if found useful.
 
 
-import requests
-import json
-from datetime import datetime, date, timedelta
-from pprint import pprint
+from django.db import models
 
 url = "https://api.themoviedb.org/3/"
 url_discover_key = "https://api.themoviedb.org/3/discover/tv?api_key=e4c6a6f5fbd60b0316b7ff30e73bec74&language=en-US&sort_by=popularity.desc"
@@ -14,7 +11,7 @@ key = "e4c6a6f5fbd60b0316b7ff30e73bec74"
 #pprint(req.json())
 
 
-class Serie:
+class Serie():
     """Class defining a Series"""
     def __init__(self, dict):
         for k,v in dict.items():

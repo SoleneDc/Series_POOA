@@ -1,9 +1,7 @@
 import requests
+from seriesDjangoProject import exception
 from seriesDjangoProject.models.class_series import Serie
-from collections import namedtuple
-from datetime import datetime, date, timedelta
-from pprint import pprint
-import json
+from seriesDjangoProject.models.series_user import SeriesUser
 
 
 class Services:
@@ -38,6 +36,7 @@ class Services:
         url_final = Services.URL_BASE + Services.GET_TV + str(query) + '?' + Services.KEY
         req = requests.get(url_final)
         x = Serie(req.json())
+
         return x
 
     def get_IDs(self, query):
@@ -94,9 +93,25 @@ class Services:
             result[item['id']] = item['name']
         return result
 
+    def removeFromFavorites(self, user, serie):
+        if user.is_anonymous:
+            raise exception.AuthenticationException
+        else:
+           SeriesUser.objects.filter(user_id=user.id, serie_id=serie.id).delete()
+        return 'OK'
 
+    def addToFavorites(self, user, serie):
+        if user.is_anonymous:
+            raise exception.AuthenticationExeption
+        else:
+            newEntry=SeriesUser(user_id=user.id,serie_id=serie.id)
+            newEntry.save()
+            return 'OK'
 
-    def effacerFavori(self, user):
-        """TODO : fonction qui efface les favoris d'un user"""
-
-
+    def joinInfoAboutFavoriteToSerieList(self, series, user_id):
+        result = []
+        for serie in series:
+            if SeriesUser.objects.filter(user_id=user_id, serie_id=serie.id).all().__len__()>=1:
+                serie.isFavorite=True
+            result.append(serie)
+        return result

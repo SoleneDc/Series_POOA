@@ -28,5 +28,7 @@ urlpatterns = [
     url(r'^search/', views.search),
     url(r'^logIn/', views.logIn),
     url(r'^logout/', views.logOut),
-    url(r'^signIn/', views.signIn)
+    url(r'^signIn/', views.signIn),
+    url(r'^addToFavorites/(?P<id>[0-9]+)/$', views.addToFavorites),
+    url(r'^removeFromFavorites/(?P<id>[0-9]+)/$', views.removeFromFavorites)
     ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

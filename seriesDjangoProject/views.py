@@ -1,13 +1,14 @@
+import json
+from django.contrib.auth import *
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
-from django.contrib.auth.models import User
-from django.contrib.auth import *
-from django.core import serializers
+
+from seriesDjangoProject import services
 from .forms import *
-import json
-import services
+
 """This class defines the controllers for the application
 each fonction is supposed to process a page and send it to the url mapper"""
 
@@ -41,6 +42,7 @@ def search(request):
                 response = []
                 for i in range(0,len(serie_id)):
                         response.append(service.get_serie(serie_id[i]))
+                response = service.joinInfoAboutFavoriteToSerieList(response,request.session['user']['id'])
                 context = {'response': response}
                 return HttpResponse(template.render(request=request, context=context))
 
@@ -77,6 +79,9 @@ def signIn(request):
                 # redirect to a new URL:*
                 user = User.objects.create_user(form.data['first_name'], form.data['email'], form.data['password'])
                 user.last_name = form.data['last_name']
+                user_profile = UserProfile()
+                user_profile.user=user
+                user_profile.save()
                 user.save()
                 context={'name' : user.first_name}
                 return HttpResponseRedirect('/welcome/')
@@ -115,3 +120,21 @@ def genre(request):
     service = services.Services()
 
     return True
+
+def addToFavorites(request, id):
+    service = services.Services()
+    serie = service.get_serie(query = id)
+    user=request.session['user']
+    user_id=user['id']
+    full_user= User.objects.get(id= user_id)
+    result = service.addToFavorites(full_user,serie)
+    json_response = {'status': result}
+    return HttpResponse(json.dumps(json_response),
+                        content_type='application/json')
+def removeFromFavorites(request, id):
+    service = services.Services()
+    serie = service.get_serie(query = id)
+    result = service.removeFromFavorites(request.user, serie)
+    json_response = {'status': result}
+    return HttpResponse(json.dumps(json_response),
+                        content_type='application/json')

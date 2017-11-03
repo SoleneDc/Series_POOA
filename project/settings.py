@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'seriesDjangoProject.apps.SeriesDjangoProjectconfig',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -122,4 +122,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'seriesDjangoProject', "static","js"),
     os.path.join(BASE_DIR, 'seriesDjangoProject', "static", "css"),
+    os.path.join(BASE_DIR, 'seriesDjangoProject', "static", "fonts"),
 )
+AUTH_PROFILE_MODULE = 'seriesDjangoProject.models.class_user.UserProfile'
