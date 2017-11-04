@@ -1,11 +1,17 @@
 {% block blocPerso %}
-    <div class="row col-xs-12 col-md-12">
-       <h3>My favorite series :</h3>
-            <ul>{%  for series in favoriteListe %}
-                <li>{{series}}</li>
-                {% endfor %}
-            </ul>
-    </div>
+    {% if request.session.user is not None %}
+        <div class="row col-xs-12 col-md-12">
+           <h3>My favorite series :</h3>
+                <ul>{%  for serie in favoriteListe %}
+                    <li>{{serie.name}}</li>
+                    {% endfor %}
+                </ul>
+        </div>
+    {% else %}
+        <div class="row col-xs-12 col-md-12">
+            <p>Don't hesitate to sing in to get all the user-personnalized features !</p>
+        </div>
+    {% endif %}
 
 
 {% endblock blocPerso %}

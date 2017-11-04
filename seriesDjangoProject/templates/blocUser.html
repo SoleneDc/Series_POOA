@@ -6,18 +6,18 @@
         <div class="col-xs-8 col-md-8"></div>
         <div class="col-xs-2 col-md-2">
             {% if request.session.user is not None %}
-          Welcome back {{ request.session.first_name }} {{ request.session.user.last_name }}!
-             <a href="/logout/">Log out</a>
-          {% else %}
-           <div class="row" >
-               <div class="col-xs-12 col-md-12">
+                Welcome back {{ request.user.username }}!
+                 <a href="/logout/">Log out</a>
+            {% else %}
+                <div class="row block-login" >
+                <div class="col-xs-12 col-md-12">
                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#log_in_modal">Log in</button>
-               </div>
-        <div class="block-signin">
-            <div class="row col-xs-12 col-md-12">
-                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sign_in_modal">Sign in</button>
-            </div>
-        </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <a data-toggle="modal" data-target="#sign_in_modal">Sign in</a>
+                    </div>
+                </div>
 
       {% endif %}
         </div>

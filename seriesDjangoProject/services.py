@@ -2,6 +2,7 @@ import requests
 from seriesDjangoProject import exception
 from seriesDjangoProject.models.class_series import Serie
 from seriesDjangoProject.models.series_user import SeriesUser
+from django.contrib.auth.models import User
 
 
 class Services:
@@ -17,7 +18,6 @@ class Services:
 
     def __init__(self):
         pass
-
 
     def search_series_names(self, query):
         """
@@ -114,4 +114,27 @@ class Services:
             if SeriesUser.objects.filter(user_id=user_id, serie_id=serie.id).all().__len__()>=1:
                 serie.isFavorite=True
             result.append(serie)
+        return result
+
+    def getFullUserFromRequest(self,request):
+        """This fonction return the user if he is logged in"""
+        if 'user' in request.session._session:
+            user = request.session._session['user'] #Dictionnary object with only id and name
+            user_id = user['id']
+            full_user = User.objects.get(id=user_id)
+            return full_user
+        else:
+            return None
+
+    def getFavoritesOfUser(self, user):
+        """We cannnot adapt the user class since it is define by Django, so it goes into a service
+        Returnth list of series that the user favorites"""
+        if user is None:
+           result=None
+        else:
+            result=[]
+            correspondaceList = SeriesUser.objects.filter(user_id=user.id).all()
+            for correspondance in correspondaceList:
+                serie = self.get_serie(correspondance.serie_id)
+                result.append(serie)
         return result
