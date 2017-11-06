@@ -108,10 +108,10 @@ class Services:
             newEntry.save()
             return 'OK'
 
-    def joinInfoAboutFavoriteToSerieList(self, series, user_id):
+    def joinInfoAboutFavoriteToSerieList(self, series, user):
         result = []
         for serie in series:
-            if SeriesUser.objects.filter(user_id=user_id, serie_id=serie.id).all().__len__()>=1:
+            if SeriesUser.objects.filter(user_id=user.id, serie_id=serie.id).all().__len__()>=1:
                 serie.isFavorite=True
             result.append(serie)
         return result
@@ -133,8 +133,8 @@ class Services:
            result=None
         else:
             result=[]
-            correspondaceList = SeriesUser.objects.filter(user_id=user.id).all()
-            for correspondance in correspondaceList:
+            correspondanceList = SeriesUser.objects.filter(user_id=user.id).all()
+            for correspondance in correspondanceList:
                 serie = self.get_serie(correspondance.serie_id)
                 result.append(serie)
         return result

@@ -38,10 +38,11 @@ def search(request):
                 # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
                 serie_id = service.get_IDs(
                     request.POST['search']) # effectue la recherche et r&cupere lID
+                user = service.getFullUserFromRequest(request)
                 response = []
                 for i in range(0,len(serie_id)):
                         response.append(service.get_serie(serie_id[i]))
-                response = service.joinInfoAboutFavoriteToSerieList(response,request.session['user']['id'])
+                response = service.joinInfoAboutFavoriteToSerieList(response,user)
                 context = {'response': response}
                 return HttpResponse(template.render(request=request, context=context))
 
