@@ -122,7 +122,7 @@ def genre(request):
 
 def addToFavorites(request, id):
     service = services.Services()
-    serie = service.get_serie(query = id)
+    serie = service.get_serie(id)
     user = service.getFullUserFromRequest(request)
     result = service.addToFavorites(user,serie)
     json_response = {'status': result}
@@ -131,7 +131,7 @@ def addToFavorites(request, id):
 
 def removeFromFavorites(request, id):
     service = services.Services()
-    serie = service.get_serie(query = id)
+    serie = service.get_serie(id)
     user = service.getFullUserFromRequest(request)
     result = service.removeFromFavorites(user, serie)
     json_response = {'status': result}
