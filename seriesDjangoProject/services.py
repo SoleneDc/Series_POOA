@@ -125,4 +125,4 @@ class Services:
         return result
 
 
-#Services().get_favorite_series_id('Pauline').
+#Services().get_favorite_series_id('Pauline')
