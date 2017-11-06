@@ -119,6 +119,8 @@ class Services:
 
     def joinInfoAboutFavoriteToSerieList(self, series, user):
         result = []
+        if user is None:
+            return series
         for serie in series:
             if SeriesUser.objects.filter(user_id=user.id, serie_id=serie.id).all().__len__()>=1:
                 serie.isFavorite=True
