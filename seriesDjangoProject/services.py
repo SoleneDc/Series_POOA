@@ -15,27 +15,13 @@ class Services:
     GET_SEASON = '/season/'
     DISCOVER = 'discover/tv?'
     FIND = 'find/tv?'
-    CHARMED_TVID = 1981 #information given for testing
+    CHARMED_TVID = 1981  # information given for testing
     TIMEZONE = 'FR'
 
     def __init__(self):
         pass
 
-    def search_series_names(self, query):
-        """
-        Function that searches the Series by name and returns all the Series names that include the string in input
-        """
-        url_final = Services.URL_BASE + Services.SEARCH + Services.KEY + '&query=' + query
-        req = requests.get(url_final)
-        result = []
-        for item in req.json()['results']:
-            x = Serie(item)
-            result.append(x)
-        return result
-
-
     def get_IDs(self, query):
-
         url_final = Services.URL_BASE + Services.SEARCH + Services.KEY + '&query=' + query
         req = requests.get(url_final)
         result = []
@@ -43,16 +29,13 @@ class Services:
             result.append(item['id'])
         return result
 
-
     def get_serie(self, id_serie):
-
         url_final = Services.URL_BASE + Services.GET_TV + str(id_serie) + '?' + Services.KEY
         req = requests.get(url_final)
         x = Serie(req.json())
         return x
 
     def coming_episode(self, id_serie, L):
-
         L2 = L
         while len(L2) != 0:
             num_season = len(L2)
@@ -72,9 +55,7 @@ class Services:
                             return {id_serie: episode}
             else:
                 L2=L2[1:]
-
             return {id_serie: {}}
-
 
     def search_people(self, query):
         """
