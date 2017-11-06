@@ -125,3 +125,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'seriesDjangoProject', "static", "fonts"),
 )
 AUTH_PROFILE_MODULE = 'seriesDjangoProject.models.class_user.UserProfile'
+SESSION_COOKIE_AGE = 200
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True

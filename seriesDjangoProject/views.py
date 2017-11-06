@@ -38,10 +38,11 @@ def search(request):
                 # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
                 serie_id = service.get_IDs(
                     request.POST['search']) # effectue la recherche et r&cupere lID
+                user = service.getFullUserFromRequest(request)
                 response = []
                 for i in range(0,len(serie_id)):
                         response.append(service.get_serie(serie_id[i]))
-                response = service.join_info_about_favorite_to_serie_list(response, request.session['user']['id'])
+                response = service.joinInfoAboutFavoriteToSerieList(response,user)
                 context = {'response': response}
                 return HttpResponse(template.render(request=request, context=context))
 
@@ -80,18 +81,19 @@ def signIn(request):
                 user.save()
                 context = {'name': user.username}
                 return HttpResponseRedirect('/welcome/')
-            else:
-                context = {'name': form.data['username']}
-                return HttpResponse("Sorry, this username is already taken.")
+#
+            #             else:
+#                return HttpResponseRedirect()
+
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RegisterForm()
+
     return render(request, 'index.html', {'form': form})
 
 def welcome(request):
     template = loader.get_template('welcome.html')
     return HttpResponse(template.render(request=request))
-
 
 def logIn(request):
     user = authenticate(username=request.POST['user_name'], password=request.POST['password'])
@@ -106,18 +108,14 @@ def logIn(request):
         return HttpResponse(json.dumps(json_response),
                             content_type='application/json')
 
-
-
 def logOut(request):
     logout(request)
     return index(request)
-
 
 def genre(request):
     #rajouter ici une fonction qui renvoie la liste des genres
     service = services.Services()
     return True
-
 
 def addToFavorites(request, id):
     service = services.Services()
@@ -128,8 +126,6 @@ def addToFavorites(request, id):
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
 
-
-
 def removeFromFavorites(request, id):
     service = services.Services()
     serie = service.get_serie(query = id)
@@ -138,4 +134,3 @@ def removeFromFavorites(request, id):
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
-

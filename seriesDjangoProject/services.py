@@ -32,10 +32,11 @@ class Services:
         return result
 
     def get_serie(self, query):
-        """?"""
+
         url_final = Services.URL_BASE + Services.GET_TV + str(query) + '?' + Services.KEY
         req = requests.get(url_final)
         x = Serie(req.json())
+
         return x
 
     def get_IDs(self, query):
@@ -92,40 +93,28 @@ class Services:
             result[item['id']] = item['name']
         return result
 
-    def remove_from_favorites(self, user, serie):
+    def removeFromFavorites(self, user, serie):
         if user.is_anonymous:
             raise exception.AuthenticationException
         else:
            SeriesUser.objects.filter(user_id=user.id, serie_id=serie.id).delete()
         return 'OK'
 
-    def add_to_favorites(self, user, serie):
+    def addToFavorites(self, user, serie):
         if user.is_anonymous:
             raise exception.AuthenticationExeption
         else:
-            newEntry = SeriesUser(user_id=user.id,serie_id=serie.id)
+            newEntry=SeriesUser(user_id=user.id,serie_id=serie.id)
             newEntry.save()
             return 'OK'
 
-    def join_info_about_favorite_to_serie_list(self, series, user_id):
+    def joinInfoAboutFavoriteToSerieList(self, series, user):
         result = []
         for serie in series:
-            if SeriesUser.objects.filter(user_id=user_id, serie_id=serie.id).all().__len__()>=1:
-                serie.isFavorite = True
+            if SeriesUser.objects.filter(user_id=user.id, serie_id=serie.id).all().__len__()>=1:
+                serie.isFavorite=True
             result.append(serie)
         return result
-
-    #ne marche pas trop
-    def get_favorite_series_id(self, user_id):
-        """
-        Function that returns a list of series given an ID
-        """
-        result = SeriesUser.objects.filter(user_id = user_id)
-        url_final = Services.URL_BASE + Services.GET_TV + '{tv_id}?' + Services.KEY
-        return result
-
-
-#Services().get_favorite_series_id('Pauline')
 
     def getFullUserFromRequest(self,request):
         """This fonction return the user if he is logged in"""
@@ -144,8 +133,8 @@ class Services:
            result=None
         else:
             result=[]
-            correspondaceList = SeriesUser.objects.filter(user_id=user.id).all()
-            for correspondance in correspondaceList:
+            correspondanceList = SeriesUser.objects.filter(user_id=user.id).all()
+            for correspondance in correspondanceList:
                 serie = self.get_serie(correspondance.serie_id)
                 result.append(serie)
         return result
