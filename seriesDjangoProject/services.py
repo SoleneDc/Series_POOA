@@ -126,6 +126,16 @@ class Services:
         else:
             return None
 
+    def weekly_mail(self, user):
+        """Create the weekly mail for a user"""
+        seriesList = self.getFavoritesOfUser(user)
+        if seriesList.__len__()==0:
+            return None
+        else:
+            for series in seriesList:
+                print("Mail about this serie for user :" +user.username)
+
+
     def getFavoritesOfUser(self, user):
         """We cannnot adapt the user class since it is define by Django, so it goes into a service
         Returnth list of series that the user favorites"""
