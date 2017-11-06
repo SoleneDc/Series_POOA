@@ -40,11 +40,21 @@
                 <li>{{item.overview}}</li>
                 <li> <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" width="161" height="240"
                  alt="Image de la série" /> </li>
-                <li>{{item.vote_count}}</li>
+                <li>{{item.status}}</li>
+            {% if item.is_coming_soon %}
+                <li>Prochaine episode : <i>{{item.episode_coming_soon_name}}</i> - Sortie le {{ item.episode_coming_soon_air_date }}</li>
+            {% endif %}
+            {% if item.is_netflix %}
+                <li>Série Netflix : tous les épisodes sont disponibles</li>
+            {% endif %}
+
+
+
             </ul>
             <br>
         {% endfor %}
         </ul>
+
     </div>
 
     <div class = "searchResult row col-xs-12 col-md-12">

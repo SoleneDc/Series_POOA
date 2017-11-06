@@ -41,8 +41,10 @@ def search(request):
                 user = service.getFullUserFromRequest(request)
                 response = []
                 for i in range(0,len(serie_id)):
-                        response.append(service.get_serie(serie_id[i]))
-                response = service.joinInfoAboutFavoriteToSerieList(response,user)
+                        serie = service.get_serie(serie_id[i])
+                        response.append(serie)
+                response = service.joinInfoAboutFavoriteToSerieList(response, user)
+                response = service.joinInfoAboutComingEpisode(response)
                 context = {'response': response}
                 return HttpResponse(template.render(request=request, context=context))
 

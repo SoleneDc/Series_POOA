@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 from seriesDjangoProject import exception
 from seriesDjangoProject.models.class_series import Serie
 from seriesDjangoProject.models.series_user import SeriesUser
@@ -11,6 +12,7 @@ class Services:
     SEARCH = 'search/tv?'
     SEARCHPEOPLE = 'search/person?'
     GET_TV = 'tv/'
+    GET_SEASON = '/season/'
     DISCOVER = 'discover/tv?'
     FIND = 'find/tv?'
     CHARMED_TVID = 1981 #information given for testing
@@ -31,13 +33,6 @@ class Services:
             result.append(x)
         return result
 
-    def get_serie(self, query):
-
-        url_final = Services.URL_BASE + Services.GET_TV + str(query) + '?' + Services.KEY
-        req = requests.get(url_final)
-        x = Serie(req.json())
-
-        return x
 
     def get_IDs(self, query):
 
@@ -47,6 +42,39 @@ class Services:
         for item in req.json()['results']:
             result.append(item['id'])
         return result
+
+
+    def get_serie(self, id_serie):
+
+        url_final = Services.URL_BASE + Services.GET_TV + str(id_serie) + '?' + Services.KEY
+        req = requests.get(url_final)
+        x = Serie(req.json())
+        return x
+
+    def coming_episode(self, id_serie, L):
+
+        L2 = L
+        while len(L2) != 0:
+            num_season = len(L2)
+            url_final = Services.URL_BASE + Services.GET_TV + str(id_serie) + Services.GET_SEASON + str(num_season) + '?' + Services.KEY
+            req = requests.get(url_final)
+            season = req.json()
+            today = datetime.now()
+            if season['air_date'] == None:
+                return {id_serie: {}}
+            date_first_episode = datetime.strptime(season['air_date'], "%Y-%m-%d")
+            result = []
+            if (today - date_first_episode).days > 0 and (today - date_first_episode).days < 365 :
+                for episode in season['episodes']:
+                    date_episode = datetime.strptime(episode['air_date'], "%Y-%m-%d")
+                    if date_episode > today:
+                        if (date_episode - today).days <= 7:
+                            return {id_serie: episode}
+            else:
+                L2=L2[1:]
+
+            return {id_serie: {}}
+
 
     def search_people(self, query):
         """
@@ -116,6 +144,30 @@ class Services:
             result.append(serie)
         return result
 
+    def joinInfoAboutComingEpisode(self, series_list):
+        result = []
+        for series in series_list:
+            L=[]
+            episode = {}
+            if series.status == 'Returning Series':
+                if len(series._seasons) == 1:
+                    L = [0]
+                else:
+                    L = [0] * (len(series._seasons) - 1)  # il existe une saison 0 pour les 'specials' que nous ne prenons pas en compte ici
+                episode = self.coming_episode(series.id, L)
+                if episode[series.id] == {}:
+                    if series.networks != [] and series.networks[0]['name']=='Netflix':
+                        series.is_netflix = True
+                    series.is_coming_soon = False
+                else:
+                    series.is_coming_soon = True
+                    series.episode_coming_soon_name = episode[series.id]['name']
+                    series.episode_coming_soon_air_date = episode[series.id]['air_date']
+            else:
+                series.is_coming_soon = False
+            result.append(series)
+        return result
+
     def getFullUserFromRequest(self,request):
         """This fonction return the user if he is logged in"""
         if 'user' in request.session._session:
@@ -134,7 +186,6 @@ class Services:
         else:
             for series in seriesList:
                 print("Mail about this serie for user :" +user.username)
-
 
     def getFavoritesOfUser(self, user):
         """We cannnot adapt the user class since it is define by Django, so it goes into a service
