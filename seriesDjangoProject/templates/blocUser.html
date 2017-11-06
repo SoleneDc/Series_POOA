@@ -63,6 +63,11 @@
                  <form id="registration_form" action="/signIn/" method="post">
                      {% csrf_token %}
                      {{ form }}
+                     <div id="registration_error" hidden="true">
+                         Invalid username or username already used by someone else.
+                         <br>
+                         Please try another one.
+                     </div>
                      <label for="username">Username</label>
                      <input type="text" name="username"/>
                      <br/>

@@ -2,7 +2,9 @@ $('document').ready(function(){
     $('#authentication_form').submit(function(e){
     e.preventDefault();
     });
-
+    $('#registration_form').submit(function(e){
+    e.preventDefault();
+    });
 });
 
 function clicButtonLogIn(){
@@ -22,21 +24,35 @@ function logIn(){
       type: "POST",
       url: form['0'].action,
       data: form.serialize(),
-      success: function(data){
-          if(data.status=="OK"){
+      success: function(data_response){
+          if(data_response.status=="OK"){
               window.location.href=/index/
-
-
-
-
-          }else if(data.status=="KO"){
+          }else if(data_response.status=="KO"){
               $('#authentication_error').attr('hidden',false);
           }
-
       },
-      error:function(data){
-          console.log("Unkown error")
+      error:function(data_response){
+          console.log("Unknown error")
+      }
+    });
+}
 
+function signIn(){
+    var form = $('#registration_form');
+    $.ajax({
+      type: "POST",
+      url: form['0'].action,
+      data: form.serialize(),
+      success: function(data_response){
+          if(data_response.status=="OK"){
+              window.location.href=/index/
+          }
+          else if(data_response.status=="KO"){
+              $('#registration_error').attr('hidden',false);
+          }
+      },
+      error:function(data_response){
+          console.log("Unknown error")
       }
     });
 }

@@ -74,26 +74,27 @@ def signIn(request):
         # check whether it's valid:
         if form.is_valid():
             if User.objects.filter(username =form.data['username']).exists()==False:
+                json_response = {'status': 'OK'}
                 # process the data in form.cleaned_data as required
                 # ...
                 # redirect to a new URL:*
                 user = User.objects.create_user(form.data['username'], form.data['email'], form.data['password'])
                 user.save()
                 context = {'name': user.username}
-                return HttpResponseRedirect('/welcome/')
-#
-            #             else:
-#                return HttpResponseRedirect()
-
+                return HttpResponse(json.dumps(json_response), content_type='application/json')
+            else:
+                json_response = {'status': 'KO'}
+                return HttpResponse(json.dumps(json_response), content_type='application/json')
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RegisterForm()
-
     return render(request, 'index.html', {'form': form})
+
 
 def welcome(request):
     template = loader.get_template('welcome.html')
     return HttpResponse(template.render(request=request))
+
 
 def logIn(request):
     user = authenticate(username=request.POST['user_name'], password=request.POST['password'])
