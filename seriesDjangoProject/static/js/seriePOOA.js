@@ -5,6 +5,9 @@ $('document').ready(function(){
     $('#registration_form').submit(function(e){
     e.preventDefault();
     });
+    $('#searchForm').submit(function(e){
+    e.preventDefault();
+    });
 });
 
 function clicButtonLogIn(){
@@ -87,6 +90,24 @@ function clickButtonAddToFavorites(serie_id){
           }else if(data.status=="KO"){
               alert("Unknown error");
           }
+      },
+      error:function(data){
+          console.log("Unknown error");
+
+      }
+    });
+}
+
+function clickButtonSearch(){
+    form=$('#searchForm')
+    url = '/search/'
+    $.ajax({
+      type: "POST",
+      url: form['0'].action,
+      data : form.serialize(),
+      success: function(data){
+         $('#searchResult').replaceWith(data)
+
       },
       error:function(data){
           console.log("Unknown error");

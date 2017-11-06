@@ -1,27 +1,15 @@
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'seriePOOA.css' %}" />
-     <script type="text/javascript" src="{% static 'jquery-3.2.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
-
-    <meta charset="UTF-8">
-    <title>SeriesPOOA</title>
-</head>
-<body>
-
 {%  block searchResult %}
+    <div id="searchResult">
         <div class = "searchResult row col-xs-12 col-md-12">
             <h2>Recherches dans notre base de données</h2>
             <h3>Rechercher une série ou une personne</h3>
-            <form action="/search/" method="post">
+            <form id="searchForm" action="/search/" method="post">
                 {% csrf_token %}
                 {{ form }}
                 <label> People </label><input type="radio" name="tick" value="people"><br>
                 <label> Series </label><input type="radio" name="tick" value="series" checked="checked"><br>
                 <input type="text" name="search"/>
-                <input type="submit" value="Rechercher"/>
+                <input id="submitButton" type="submit" value="Rechercher" onclick="clickButtonSearch()"/>
             </form>
 
         </div>
@@ -69,6 +57,7 @@
 
         </form>
 
+    </div>
     </div>
 {%  endblock searchResult %}
 </body>
