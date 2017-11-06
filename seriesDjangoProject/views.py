@@ -16,7 +16,10 @@ def index(request):
     template = loader.get_template('index.html')
     bestseries = service.discover_best_series()
     airingseries = service.discover_series_on_the_air()
-    context = {'bestseries' : bestseries, 'airingseries': airingseries}
+    user = service.getFullUserFromRequest(request)
+    request.user=user
+    favoriteListe = service.getFavoritesOfUser(user)
+    context = {'bestseries' : bestseries, 'airingseries': airingseries, 'favoriteListe' : favoriteListe }
     return HttpResponse(template.render(request=request, context = context))
 
 
@@ -85,7 +88,6 @@ def signIn(request):
         form = RegisterForm()
     return render(request, 'index.html', {'form': form})
 
-
 def welcome(request):
     template = loader.get_template('welcome.html')
     return HttpResponse(template.render(request=request))
@@ -94,7 +96,7 @@ def welcome(request):
 def logIn(request):
     user = authenticate(username=request.POST['user_name'], password=request.POST['password'])
     if user is not None:
-        user ={'first_name': user.first_name, 'id' : user.id, 'last_name' : user.last_name}
+        user ={'id' : user.id}
         request.session['user'] = user
         json_response = {'status': 'OK', 'user': user}
         return HttpResponse(json.dumps(json_response),
@@ -103,6 +105,7 @@ def logIn(request):
         json_response = {'status': 'KO'}
         return HttpResponse(json.dumps(json_response),
                             content_type='application/json')
+
 
 
 def logOut(request):
@@ -119,22 +122,19 @@ def genre(request):
 def addToFavorites(request, id):
     service = services.Services()
     serie = service.get_serie(query = id)
-    user=request.session['user']
-    user_id=user['id']
-    full_user= User.objects.get(id= user_id)
-    result = service.add_to_favorites(full_user, serie)
+    user = service.getFullUserFromRequest(request)
+    result = service.addToFavorites(user,serie)
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
 
 
+
 def removeFromFavorites(request, id):
     service = services.Services()
     serie = service.get_serie(query = id)
-    user = request.session['user']
-    user_id = user['id']
-    full_user = User.objects.get(id=user_id)
-    result = service.remove_from_favorites(full_user, serie)
+    user = service.getFullUserFromRequest(request)
+    result = service.removeFromFavorites(user, serie)
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
