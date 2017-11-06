@@ -139,8 +139,3 @@ class Episode:
 
     def __set__(self, instance, value):
         '''TODO'''
-
-
-
-
-"mot"
