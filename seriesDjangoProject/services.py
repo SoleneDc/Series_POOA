@@ -6,6 +6,7 @@ from seriesDjangoProject.models.series_user import SeriesUser
 from django.contrib.auth.models import User
 
 
+
 class Services:
     #si les constantes ne sont utilisées que dans une classe précise, il faut les passer en mode privé avec __devant
     URL_BASE = "https://api.themoviedb.org/3/"
