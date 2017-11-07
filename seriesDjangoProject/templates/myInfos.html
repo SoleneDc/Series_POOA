@@ -1,7 +1,8 @@
 {% block blocPerso %}
+    <h2>Mon espace personnel</h2>
     {% if request.session.user is not None %}
         <div class="row col-xs-12 col-md-12">
-           <h3>My favorite series :</h3>
+           <h3>Mes séries favorites :</h3>
                 <ul>{%  for serie in favoriteListe %}
                     <li>{{serie.name}}</li>
                     {% endfor %}
@@ -9,7 +10,7 @@
         </div>
     {% else %}
         <div class="row col-xs-12 col-md-12">
-            <p>Don't hesitate to sing in to get all the user-personnalized features !</p>
+            <p>Authentifiez-vous pour bénéficier de votre espace personnalisé</p>
         </div>
     {% endif %}
 

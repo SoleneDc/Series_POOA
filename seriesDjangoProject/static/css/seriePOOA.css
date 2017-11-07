@@ -11,3 +11,9 @@
 }
 .top20{
 }
+.searchResultContent{
+    min-height: 300px;
+}
+.searchResultBlock{
+    padding-left: 0px;
+}

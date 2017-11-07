@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 
 class Services:
+    #si les constantes ne sont utilisées que dans une classe précise, il faut les passer en mode privé avec __devant
     URL_BASE = "https://api.themoviedb.org/3/"
     KEY = "api_key=e4c6a6f5fbd60b0316b7ff30e73bec74"
     SEARCH = 'search/tv?'
@@ -75,10 +76,16 @@ class Services:
         """
         url_final = Services.URL_BASE + Services.DISCOVER + Services.KEY + '&sort_by=popularity.desc&page=1&include_null_first_air_dates=false'
         req = requests.get(url_final)
-        result = []
+        list_best_series = []
         for item in req.json()['results']:
-            result.append(item['name'])
-        return result
+            x = Serie(item)
+            list_best_series.append(x)
+        return list_best_series
+
+#        result = []
+#        for item in req.json()['results']:
+#            result.append(item['name'])
+#        return result
 
     def discover_series_on_the_air(self):
         """
@@ -172,7 +179,7 @@ class Services:
 
     def getFavoritesOfUser(self, user):
         """We cannnot adapt the user class since it is define by Django, so it goes into a service
-        Returnth list of series that the user favorites"""
+        Return the list of series that the user favorites"""
         if user is None:
            result=None
         else:

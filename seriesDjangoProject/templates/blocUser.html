@@ -1,3 +1,12 @@
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'seriePOOA.css' %}" />
+     <script type="text/javascript" src="{% static 'jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
+
+    <meta charset="UTF-8">
+
 {% block blocUser %}
     <div class="row col-xs-12 col-md-12">
         <div class="col-xs-2 col-md-2">
@@ -11,11 +20,11 @@
             {% else %}
                 <div class="row block-login" >
                 <div class="col-xs-12 col-md-12">
-                           <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#log_in_modal">Log in</button>
+                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#log_in_modal">Log in</button>
                 </div>
-                <div class="row">
+                <div class="row block-signin">
                     <div class="col-xs-12 col-md-12">
-                        <a data-toggle="modal" data-target="#sign_in_modal">Sign in</a>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sign_in_modal">Sign in</button>
                     </div>
                 </div>
 

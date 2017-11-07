@@ -1,3 +1,12 @@
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'seriePOOA.css' %}" />
+     <script type="text/javascript" src="{% static 'jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'seriePOOA.js' %}"></script>
+
+    <meta charset="UTF-8">
+
 {%  block searchResult %}
     <div id="searchResult">
         <div class = "searchResult row col-xs-12 col-md-12">
@@ -11,13 +20,13 @@
                 <input type="text" name="search"/>
                 <input id="submitButton" type="submit" value="Rechercher" onclick="clickButtonSearch()"/>
             </form>
-
         </div>
-
+    </div>
     <div class = "searchResult row col-xs-12 col-md-12">
         Page de résultat de la recherche, voici les résultats : </br> </br>
-        <ul>
+        <ul id="searchResultBlock" class="searchResultBlock">
         {% for item in response %}
+            <div id="searchResultContent" class="searchResultContent">
             <h2>{{item.name}}
                 {% if item.isFavorite %}
                     <a class ="glyphicon glyphicon-star" onclick="clickButtonRemoveFromFavorites({{ item.id }})"></a>
@@ -25,39 +34,32 @@
                      <a class ="glyphicon glyphicon-star-empty" onclick="clickButtonAddToFavorites({{ item.id }})"></a>
                 {% endif %}
             </h2>
+                <img id="searchResultImg" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" style="float:left;width:161px;height:240px;"
+                     alt="Image de la série" />
+                <ul>
                 <li>{{item.overview}}</li>
-                <li> <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" width="161" height="240"
-                 alt="Image de la série" /> </li>
                 <li>{{item.status}}</li>
-            {% if item.is_coming_soon %}
-                <li>Prochaine episode : <i>{{item.episode_coming_soon_name}}</i> - Sortie le {{ item.episode_coming_soon_air_date }}</li>
-            {% endif %}
-            {% if item.is_netflix %}
-                <li>Série Netflix : tous les épisodes sont disponibles</li>
-            {% endif %}
-
-
-
-            </ul>
+                {% if item.is_coming_soon %}
+                    <li>Prochaine episode : <i>{{item.episode_coming_soon_name}}</i> - Sortie le {{ item.episode_coming_soon_air_date }}</li>
+                {% endif %}
+                {% if item.is_netflix %}
+                    <li>Série Netflix : tous les épisodes sont disponibles</li>
+                {% endif %}
+                </ul>
+            </div>
             <br>
         {% endfor %}
         </ul>
-
     </div>
-
     <div class = "searchResult row col-xs-12 col-md-12">
         <h2>Genres</h2>
-
         <form>
             <select name = "genre">
             {% for item in dict_genres %}
                <option value = "{{ item.value }}"></option>
                 {% endfor %}
             </select>
-
         </form>
-
-    </div>
     </div>
 {%  endblock searchResult %}
 </body>

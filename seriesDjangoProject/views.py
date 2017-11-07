@@ -11,16 +11,17 @@ from .forms import *
 """This class defines the controllers for the application
 each fonction is supposed to process a page and send it to the url mapper"""
 
+
 def index(request):
     service = services.Services()
     template = loader.get_template('index.html')
-    bestseries = service.discover_best_series()
+    bestseries = service.discover_best_series() # c'est censé être une liste d'objets
     airingseries = service.discover_series_on_the_air()
     user = service.getFullUserFromRequest(request)
     request.user=user
     favoriteListe = service.getFavoritesOfUser(user)
-    context = {'bestseries' : bestseries, 'airingseries': airingseries, 'favoriteListe' : favoriteListe }
-    return HttpResponse(template.render(request=request, context = context))
+    context = {'bestseries' : bestseries, 'airingseries': airingseries, 'favoriteListe': favoriteListe}
+    return HttpResponse(template.render(request=request, context=context))
 
 
 def search(request):
@@ -111,23 +112,27 @@ def logIn(request):
         return HttpResponse(json.dumps(json_response),
                             content_type='application/json')
 
+
 def logOut(request):
     logout(request)
     return index(request)
+
 
 def genre(request):
     #rajouter ici une fonction qui renvoie la liste des genres
     service = services.Services()
     return True
 
+
 def addToFavorites(request, id):
     service = services.Services()
     serie = service.get_serie(id)
     user = service.getFullUserFromRequest(request)
-    result = service.addToFavorites(user,serie)
+    result = service.addToFavorites(user, serie)
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
+
 
 def removeFromFavorites(request, id):
     service = services.Services()
