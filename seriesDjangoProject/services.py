@@ -23,6 +23,10 @@ class Services:
         pass
 
     def get_IDs(self, query):
+        """
+        :param query: Corresponding to the user's search
+        :return: Returns a list of the series' ids (corresponding to the user's search)
+        """
         url_final = Services.URL_BASE + Services.SEARCH + Services.KEY + '&query=' + query
         req = requests.get(url_final)
         result = []
@@ -31,12 +35,21 @@ class Services:
         return result
 
     def get_serie(self, id_serie):
+        """
+        :param id_serie: ID of the series
+        :return: Returns the object serie corresponding to the ID
+        """
         url_final = Services.URL_BASE + Services.GET_TV + str(id_serie) + '?' + Services.KEY
         req = requests.get(url_final)
         x = Serie(req.json())
         return x
 
     def coming_episode(self, id_serie, L):
+        """
+        :param id_serie: ID of the series
+        :param L: The length of the list represents the number of seasons // excluding the specials
+        :return: a dictionary where key = series ID and value = episode if there is an episode is coming in less than 7 days, {} if not
+        """
         L2 = L
         while len(L2) != 0:
             num_season = len(L2)
@@ -60,7 +73,8 @@ class Services:
 
     def search_people(self, query):
         """
-        Returns XXX to check
+        :param query: = the user's search (it should be a person)
+        :return: list of celebrities corresponding to the search
         """
         url_final = Services.URL_BASE + Services.SEARCHPEOPLE + Services.KEY + '&query=' + query
         req = requests.get(url_final)
@@ -72,7 +86,7 @@ class Services:
 
     def discover_best_series(self):
         """
-        Function that gives the user the 20 most popular series (there are 20 series displayed by page)
+        :return: Function that gives the user the 20 most popular series (there are 20 series displayed by page)
         """
         url_final = Services.URL_BASE + Services.DISCOVER + Services.KEY + '&sort_by=popularity.desc&page=1&include_null_first_air_dates=false'
         req = requests.get(url_final)
@@ -89,7 +103,7 @@ class Services:
 
     def discover_series_on_the_air(self):
         """
-        Functions that returns a list of 20 most popular series on the air within the next 7 days, sorted by popularity
+        :return: Functions that returns a list of 20 most popular series on the air within the next 7 days, sorted by popularity
         """
         url_final = Services.URL_BASE + 'tv/on_the_air?' + Services.KEY + '&page=1'
         req = requests.get(url_final)
@@ -100,7 +114,7 @@ class Services:
 
     def get_genres(self):
         """
-        Function that returns the list of series genres available on TMDB. It allows us to stay up-to-date about all the genres they list.
+        :return: Function that returns the list of series genres available on TMDB. It allows us to stay up-to-date about all the genres they list.
         """
         url_final = Services.URL_BASE + 'genre/tv/list?' + Services.KEY
         req = requests.get(url_final)
@@ -110,6 +124,11 @@ class Services:
         return result
 
     def removeFromFavorites(self, user, serie):
+        """
+        :param user: the user
+        :param serie: a serie
+        :return: Removes the serie from the user's favorites
+        """
         if user.is_anonymous:
             raise exception.AuthenticationException
         else:
@@ -117,6 +136,11 @@ class Services:
         return 'OK'
 
     def addToFavorites(self, user, serie):
+        """
+        :param user: the user
+        :param serie: a serie
+        :return: Adds the serie from the user's favorites
+        """
         if user.is_anonymous:
             raise exception.AuthenticationExeption
         else:
@@ -125,16 +149,32 @@ class Services:
             return 'OK'
 
     def joinInfoAboutFavoriteToSerieList(self, series, user):
+        """
+        :param user: the user
+        :param series: list of series
+        :return: Adds to each series an attribute for it to be in the user's favorite or not
+        """
         result = []
         if user is None:
+            for serie in series:
+                serie.isFavorite = False
+                serie.user_logged_in = False
             return series
         for serie in series:
             if SeriesUser.objects.filter(user_id=user.id, serie_id=serie.id).all().__len__()>=1:
-                serie.isFavorite=True
+                serie.isFavorite = True
+            else:
+                serie.isFavorite = False
+            serie.user_logged_in = True
             result.append(serie)
         return result
 
     def joinInfoAboutComingEpisode(self, series_list):
+        """
+        :param series_list: list of series
+        :return: Adds to the series the following attributes is_coming_soon (if an episode is released in less than 7 days), episode_coming_soon_name,
+        episode_coming_soon_air_date
+        """
         result = []
         for series in series_list:
             L=[]
@@ -148,6 +188,8 @@ class Services:
                 if episode[series.id] == {}:
                     if series.networks != [] and series.networks[0]['name']=='Netflix':
                         series.is_netflix = True
+                    else:
+                        series.is_netflix = False
                     series.is_coming_soon = False
                 else:
                     series.is_coming_soon = True
@@ -159,7 +201,10 @@ class Services:
         return result
 
     def getFullUserFromRequest(self,request):
-        """This fonction return the user if he is logged in"""
+        """
+        :param request:
+        :return: The user if he is logged in
+        """
         if 'user' in request.session._session:
             user = request.session._session['user'] #Dictionnary object with only id and name
             user_id = user['id']

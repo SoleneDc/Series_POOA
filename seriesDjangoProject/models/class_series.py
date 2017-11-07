@@ -56,6 +56,10 @@ class Serie():
     def vote_count(self):
         return self._vote_count
 
+    @property
+    def first_air_date(self):
+        return self._first_air_date
+
 # Series Setter :
     @tv_id.setter
     def tv_id(self, value):
@@ -93,6 +97,9 @@ class Serie():
     def vote_count(self, value):
         self._vote_count = value
 
+    @first_air_date.setter
+    def first_air_date(self, value):
+        self._first_air_date = value
 
 
 
