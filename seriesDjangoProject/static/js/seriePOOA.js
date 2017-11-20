@@ -101,12 +101,14 @@ function clickButtonAddToFavorites(serie_id){
 function clickButtonSearch(){
     form=$('#searchForm')
     url = '/search/'
+    $('#loader').removeClass("loader_hidden")
     $.ajax({
       type: "POST",
       url: form['0'].action,
       data : form.serialize(),
       success: function(data){
          $('#searchResult').replaceWith(data)
+          $('#loader').addClass("loader_hidden")
 
       },
       error:function(data){
@@ -115,3 +117,5 @@ function clickButtonSearch(){
       }
     });
 }
+
+

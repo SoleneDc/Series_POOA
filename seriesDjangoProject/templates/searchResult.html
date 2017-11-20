@@ -12,6 +12,7 @@
         <div class = "searchResult row col-xs-12 col-md-12">
             <h2>Recherches dans notre base de données</h2>
             <h3>Rechercher une série ou une personne</h3>
+
             <form id="searchForm" action="/search/" method="post">
                 {% csrf_token %}
                 {{ form }}
@@ -23,17 +24,18 @@
         </div>
     </div>
     <div class = "searchResult row col-xs-12 col-md-12">
-        Page de résultat de la recherche, voici les résultats : </br> </br>
+        <div id="loader" class="loader loader_hidden"></div>
+        </br> </br>
         <ul id="searchResultBlock" class="searchResultBlock">
         {% for item in response %}
             <div id="searchResultContent" class="searchResultContent">
             <h2>{{item.name}}
                 {% if item.isFavorite %}
-                    <a class ="glyphicon glyphicon-star" onclick="clickButtonRemoveFromFavorites({{ item.id }})"></a>
+                    <a class ="glyphicon glyphicon-star" onclick="clickButtonRemoveFromFavorites({{ item.id }})" style="cursor: pointer"></a>
                 {% elif item.user_logged_in %}
-                     <a class ="glyphicon glyphicon-star-empty" onclick="clickButtonAddToFavorites({{ item.id }})"></a>
+                     <a class ="glyphicon glyphicon-star-empty" onclick="clickButtonAddToFavorites({{ item.id }})" style="cursor: pointer"></a>
                 {% elif item.user_logged_in == False %}
-                    <a class ="glyphicon glyphicon-star-empty" data-toggle="modal" data-target="#log_in_modal" onclick="$('#not_logged_in_favorite').attr('hidden',false)"></a>
+                    <a class ="glyphicon glyphicon-star-empty" data-toggle="modal" data-target="#log_in_modal" onclick="$('#not_logged_in_favorite').attr('hidden',false)" style="cursor: pointer"></a>
                 {% endif %}
             </h2>
                 <img id="searchResultImg" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" style="float:left;width:161px;height:240px;"
