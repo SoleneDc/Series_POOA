@@ -38,7 +38,7 @@ def search(request):
                 template = loader.get_template('searchResult.html')  # charge la page html
                 # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
                 serie_id = service.get_IDs(
-                    request.POST['search']) # effectue la recherche et r&cupere lID
+                    request.POST['search']) # effectue la recherche et récupère l'ID
                 user = service.getFullUserFromRequest(request)
                 response = []
                 for i in range(0,len(serie_id)):
@@ -142,3 +142,9 @@ def removeFromFavorites(request, id):
     json_response = {'status': result}
     return HttpResponse(json.dumps(json_response),
                         content_type='application/json')
+
+def getSeriesInformation(request, series_id):
+    service = services.Service()
+    series = service.get_serie(series_id)
+    template = loader.get_template('searchResult.html')
+    return HttpResponse(template.render(request=request, context=context))

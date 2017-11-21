@@ -19,6 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from seriesDjangoProject import views
 
+#fichier rassemblant les différents url
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', views.index),
@@ -29,5 +32,6 @@ urlpatterns = [
     url(r'^logout/', views.logOut),
     url(r'^signIn/', views.signIn),
     url(r'^add_to_favorites/(?P<id>[0-9]+)/$', views.addToFavorites),
-    url(r'^remove_from_favorites/(?P<id>[0-9]+)/$', views.removeFromFavorites)
+    url(r'^remove_from_favorites/(?P<id>[0-9]+)/$', views.removeFromFavorites),
+    url(r'^getSeriesInformation/', views.getSeriesInformation),
     ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -118,4 +118,22 @@ function clickButtonSearch(){
     });
 }
 
+function clickSeriesSearch(id){
+    url = '/getSeriesInformation/'
+    $('#loader').removeClass("loader_hidden")
+    $.ajax({
+        type: "POST",
+        url: url ,
+        data : id,
+        success: function(data){
+         $('#searchResult').text(data)
+          $('#loader').addClass("loader_hidden")
+
+      },
+      error:function(data){
+          console.log("Unknown error");
+
+      }
+    });
+}
 
