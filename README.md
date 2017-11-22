@@ -6,7 +6,7 @@ PYHTON GROUPE 7 : Notes d’installation pour le projet SeriesPOOA
 •	Remplir ses accès à gitHub et cloner le repository : https://github.com/SoleneDc/Series_POOA.git
 
 ============================================================================================================================
-ATTENTION : bien vérifier qu’un interpréteur est renseigné dans les run configurations
+Atten : bien vérifier qu’un interpréteur est renseigné dans les run configurations
 ============================================================================================================================
 
 •	Une fois le projet ajouté, effectuer un run de la configuration Django « Migrate »

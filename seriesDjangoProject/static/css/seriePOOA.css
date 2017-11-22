@@ -4,9 +4,14 @@
 .block-login{
     float: right;
 }
-.block-signin{
-    float: right;
+.user-button{
+    margin-top: 5px;
 }
+.site-title{
+    text-align: center;
+    font-family: cursive;
+}
+
 .searchResult{
 }
 .top20{

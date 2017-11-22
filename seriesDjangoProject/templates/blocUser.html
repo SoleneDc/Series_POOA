@@ -12,7 +12,11 @@
         <div class="col-xs-2 col-md-2">
             <a href="/index/">Page d'accueil</a>
         </div>
-        <div class="col-xs-8 col-md-8"></div>
+        <div class="col-xs-8 col-md-8">
+        <h1 class="site-title">
+            POOA SERIES
+        </h1>
+        </div>
         <div class="col-xs-2 col-md-2">
             {% if request.session.user is not None %}
                 Welcome back {{ request.user.username }}!
@@ -20,12 +24,10 @@
             {% else %}
                 <div class="row block-login" >
                 <div class="col-xs-12 col-md-12">
-                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#log_in_modal">Log in</button>
+                    <button class="btn btn-primary btn-lg user-button" data-toggle="modal" data-target="#log_in_modal">Log in</button>
                 </div>
-                <div class="row block-signin">
-                    <div class="col-xs-12 col-md-12">
-                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sign_in_modal">Sign in</button>
-                    </div>
+                <div class="col-xs-12 col-md-12">
+                    <button class="btn btn-primary btn-lg user-button" data-toggle="modal" data-target="#sign_in_modal">Sign in</button>
                 </div>
 
       {% endif %}
