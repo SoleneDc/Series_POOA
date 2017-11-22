@@ -228,10 +228,6 @@ class Services:
                     message+= series.name + " "
                 return message
 
-
-
-
-
     def getFavoritesOfUser(self, user):
         """We cannnot adapt the user class since it is define by Django, so it goes into a service
         Return the list of series that the user favorites"""
