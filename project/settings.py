@@ -128,3 +128,10 @@ AUTH_PROFILE_MODULE = 'seriesDjangoProject.models.class_user.UserProfile'
 SESSION_COOKIE_AGE = 200
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = ''
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
