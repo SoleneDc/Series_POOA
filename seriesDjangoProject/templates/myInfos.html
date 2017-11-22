@@ -4,7 +4,7 @@
         <div id="LeftSideBar" class="col-xs-3 col-md-3>"
            <h2>Mes séries favorites :</h2>
                 {%  for series in favoriteListe %}
-                    <img id="searchResultImg" src="https://image.tmdb.org/t/p/w500{{series.poster_path}}" style="float:left;width:161px;height:240px;" alt="{{ series.name }}" onclick="clickSeriesSearch({{ series.id }})">
+                    <img id="searchResultImg" src="https://image.tmdb.org/t/p/w500{{series.poster_path}}" style="float:left;width:161px;height:240px;cursor: pointer" alt="{{ series.name }}" onclick="clickSeriesSearch({{ series.id }})" >
                 {% endfor %}
         </div>
     {% else %}
@@ -12,6 +12,4 @@
             <p>Authentifiez-vous pour bénéficier de votre espace personnalisé</p>
         </div>
     {% endif %}
-
-
 {% endblock blocPerso %}
