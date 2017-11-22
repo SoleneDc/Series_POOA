@@ -119,15 +119,12 @@ function clickButtonSearch(){
 }
 
 function clickSeriesSearch(id){
-    url = '/getSeriesInformation/'
-    $('#loader').removeClass("loader_hidden")
+    url = '/getSeriesInformation/'+ id
     $.ajax({
-        type: "POST",
-        url: url ,
-        data : id,
+        type: "GET",
+        url: url,
         success: function(data){
-         $('#searchResult').text(data)
-          $('#loader').addClass("loader_hidden")
+         $('#searchResult').replaceWith(data)
 
       },
       error:function(data){

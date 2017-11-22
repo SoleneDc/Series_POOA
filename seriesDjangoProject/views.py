@@ -137,7 +137,13 @@ def removeFromFavorites(request, id):
                         content_type='application/json')
 
 def getSeriesInformation(request, series_id):
-    service = services.Service()
+    service = services.Services()
+    user = service.getFullUserFromRequest(request)
     series = service.get_serie(series_id)
     template = loader.get_template('searchResult.html')
+    response = []
+    response.append(series)
+    response = service.joinInfoAboutFavoriteToSerieList(response, user)
+    response = service.joinInfoAboutComingEpisode(response)
+    context = {'response': response}
     return HttpResponse(template.render(request=request, context=context))
