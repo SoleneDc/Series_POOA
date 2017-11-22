@@ -204,11 +204,28 @@ class Services:
     def weekly_mail(self, user):
         """Create the weekly mail for a user"""
         seriesList = self.getFavoritesOfUser(user)
+        seriesList = self.joinInfoAboutComingEpisode(seriesList)
         if seriesList.__len__()==0:
             return None
         else:
+            should_notify =False
+            airing_series=[]
             for series in seriesList:
-                print("Mail about this serie for user :" +user.username)
+                if series.is_coming_soon:
+                    airing_series.append(series)
+                    should_notify=True
+            if not should_notify:
+                return None
+            else:
+                message = list(" You have incoming episode this week in this series : ")
+                for series in airing_series:
+                    message.append(list(series.name + ", "))
+                message[message.__len__()-2]="."
+                return message
+
+
+
+
 
     def getFavoritesOfUser(self, user):
         """We cannnot adapt the user class since it is define by Django, so it goes into a service
