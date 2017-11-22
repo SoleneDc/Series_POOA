@@ -1,4 +1,8 @@
 $('document').ready(function(){
+    initPreventDefaults();
+});
+
+function initPreventDefaults(){
     $('#authentication_form').submit(function(e){
     e.preventDefault();
     });
@@ -8,7 +12,7 @@ $('document').ready(function(){
     $('#searchForm').submit(function(e){
     e.preventDefault();
     });
-});
+}
 
 function clicButtonLogIn(){
     var modal = document.getElementById('log_in_modal');
@@ -107,8 +111,9 @@ function clickButtonSearch(){
       url: form['0'].action,
       data : form.serialize(),
       success: function(data){
-         $('#searchResult').replaceWith(data)
-          $('#loader').addClass("loader_hidden")
+         $('#searchResult').replaceWith(data);
+          initPreventDefaults();
+          $('#loader').addClass("loader_hidden");
 
       },
       error:function(data){
@@ -124,7 +129,8 @@ function clickSeriesSearch(id){
         type: "GET",
         url: url,
         success: function(data){
-         $('#searchResult').replaceWith(data)
+         $('#searchResult').replaceWith(data);
+         initPreventDefaults();
 
       },
       error:function(data){
