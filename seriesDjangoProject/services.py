@@ -30,7 +30,7 @@ class Services:
         """
         answer = True
         for symb in query:
-            if symb.isalnum() == False and symb != "'" and symb != "!":
+            if symb.isalnum() == False and symb != " " and symb != "!" and symb != "'":
                 answer = False
         return answer
 
