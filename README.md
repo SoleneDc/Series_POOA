@@ -20,7 +20,7 @@ Enfin il existe une dernière configuration qui peut servir : « weekly_mail » 
 Elle est destinée à être activée par un cron hebdomadaire pour lancer un envoi de mail une fois par semaine.
 Vous pouvez la lancer manuellement pour essayer.
 
-L'application web peut encore être amélioré graphiquement, et avec la gestion de l'exception de connection aux API échouées.
+L'application web peut encore être amélioré graphiquement, et avec un soucis lorsque l'on effectue deux recherches consécutives sans rafraichir la page.
 La structure est déjà là et toutes les différentes techniques à utiliser ont déjà servie : gestion d'exceptions, bootstrap, etc.
 
 ============================================================================================================================
