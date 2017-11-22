@@ -4,7 +4,7 @@ from seriesDjangoProject import services
 from django.core.mail import send_mail
 
 class Command(BaseCommand):
-    FROM_ADRESS = 'timothee.guez@student.ecp.fr'
+    FROM_ADRESS = '1970annasmith@gmail.com'
     DAILY_MAIL_OBJECT = '[My series] Weekly alert'
     service = services.Services()
 

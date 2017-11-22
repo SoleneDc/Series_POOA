@@ -217,10 +217,9 @@ class Services:
             if not should_notify:
                 return None
             else:
-                message = list(" You have incoming episode this week in this series : ")
+                message = " You have incoming episode this week in this series : "
                 for series in airing_series:
-                    message.append(list(series.name + ", "))
-                message[message.__len__()-2]="."
+                    message+= series.name + " "
                 return message
 
 
