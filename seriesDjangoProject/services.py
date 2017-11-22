@@ -97,33 +97,6 @@ class Services:
             list_best_series.append(x)
         return list_best_series
 
-#        result = []
-#        for item in req.json()['results']:
-#            result.append(item['name'])
-#        return result
-
-    def discover_series_on_the_air(self):
-        """
-        :return: Functions that returns a list of 20 most popular series on the air within the next 7 days, sorted by popularity
-        """
-        url_final = Services.URL_BASE + 'tv/on_the_air?' + Services.KEY + '&page=1'
-        req = requests.get(url_final)
-        result = []
-        for item in req.json()['results']:
-            result.append(item['name'])
-        return result
-
-    def get_genres(self):
-        """
-        :return: Function that returns the list of series genres available on TMDB. It allows us to stay up-to-date about all the genres they list.
-        """
-        url_final = Services.URL_BASE + 'genre/tv/list?' + Services.KEY
-        req = requests.get(url_final)
-        result = {}
-        for item in req.json()['genres']:
-            result[item['id']] = item['name']
-        return result
-
     def removeFromFavorites(self, user, serie):
         """
         :param user: the user

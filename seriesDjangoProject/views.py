@@ -16,11 +16,10 @@ def index(request):
     service = services.Services()
     template = loader.get_template('index.html')
     bestseries = service.discover_best_series() # c'est censé être une liste d'objets
-    airingseries = service.discover_series_on_the_air()
     user = service.getFullUserFromRequest(request)
     request.user=user
     favoriteListe = service.getFavoritesOfUser(user)
-    context = {'bestseries' : bestseries, 'airingseries': airingseries, 'favoriteListe': favoriteListe}
+    context = {'bestseries' : bestseries, 'favoriteListe': favoriteListe}
     return HttpResponse(template.render(request=request, context=context))
 
 
@@ -116,12 +115,6 @@ def logIn(request):
 def logOut(request):
     logout(request)
     return index(request)
-
-
-def genre(request):
-    #rajouter ici une fonction qui renvoie la liste des genres
-    service = services.Services()
-    return True
 
 
 def addToFavorites(request, id):

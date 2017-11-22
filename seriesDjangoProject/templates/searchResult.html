@@ -55,15 +55,5 @@
         {% endfor %}
         </ul>
     </div>
-    <div class = "searchResult row col-xs-12 col-md-12">
-        <h2>Genres</h2>
-        <form>
-            <select name = "genre">
-            {% for item in dict_genres %}
-               <option value = "{{ item.value }}"></option>
-                {% endfor %}
-            </select>
-        </form>
-    </div>
 {%  endblock searchResult %}
 </body>

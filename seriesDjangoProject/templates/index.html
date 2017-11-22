@@ -29,11 +29,6 @@
             {%  for series in bestseries %}
                 <img id="searchResultImg" src="https://image.tmdb.org/t/p/w500{{series.poster_path}}" style="float:left;width:161px;height:240px;" alt="Image de la série"/>
                 {% endfor %}
-            <h3>Top 20 Séries de la semaine :</h3>
-            <ul>{%  for series in airingseries %}
-                <li>{{series}}</li>
-                {% endfor %}
-            </ul>
     </div>
 </div>
 
