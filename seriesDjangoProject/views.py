@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
-from seriesDjangoProject import services
+from seriesDjangoProject import services, exception
 from .forms import *
 
 """This class defines the controllers for the application
@@ -23,48 +23,50 @@ def index(request):
 
 
 def search(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = SearchForm(request.POST)
-        # check whether it's valid:
-        #hello
-        if form.is_valid():
+    try:
+        # if this is a POST request we need to process the form data
+        if request.method == 'POST':
+            # create a form instance and populate it with data from the request:
+            form = SearchForm(request.POST)
+            # check whether it's valid:
+            #hello
+            if form.is_valid():
 
-            if request.POST.get('tick')=="series":
-                service = services.Services()  # charge service
-                template = loader.get_template('searchResult.html')  # charge la page html
-                # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
-                serie_id = service.get_IDs(
-                    request.POST['search']) # effectue la recherche et récupère l'ID
-                user = service.getFullUserFromRequest(request)
-                response = []
-                for i in range(0,len(serie_id)):
-                        serie = service.get_serie(serie_id[i])
-                        response.append(serie)
-                response = service.joinInfoAboutFavoriteToSerieList(response, user)
-                response = service.joinInfoAboutComingEpisode(response)
-                context = {'response': response}
-                return HttpResponse(template.render(request=request, context=context))
+                if request.POST.get('tick')=="series":
+                    service = services.Services()  # charge service
+                    template = loader.get_template('searchResult.html')  # charge la page html
+                    # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
+                    serie_id = service.get_IDs(
+                        request.POST['search']) # effectue la recherche et récupère l'ID
+                    user = service.getFullUserFromRequest(request)
+                    response = []
+                    for i in range(0,len(serie_id)):
+                            serie = service.get_serie(serie_id[i])
+                            response.append(serie)
+                    response = service.joinInfoAboutFavoriteToSerieList(response, user)
+                    response = service.joinInfoAboutComingEpisode(response)
+                    context = {'response': response}
+                    return HttpResponse(template.render(request=request, context=context))
 
-            elif request.POST.get('tick')=="people":
-                # process the data in form.cleaned_data as required
-                # ...
-                # redirect to a new URL:
-                service = services.Services()  # charge service
-                template = loader.get_template('searchPeople.html')  # charge la page html
-                # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
-                response = service.search_people(request.POST['search'])  # effectue la recherche et r&cupere la réponse
-                context = {'response': response}
-                return HttpResponse(template.render(request=request, context=context))
+                elif request.POST.get('tick')=="people":
+                    # process the data in form.cleaned_data as required
+                    # ...
+                    # redirect to a new URL:
+                    service = services.Services()  # charge service
+                    template = loader.get_template('searchPeople.html')  # charge la page html
+                    # request.POST['search'] est la chaine de caractères entrée en recherche par l'user
+                    response = service.search_people(request.POST['search'])  # effectue la recherche et r&cupere la réponse
+                    context = {'response': response}
+                    return HttpResponse(template.render(request=request, context=context))
 
-            else:
-                raise EnvironmentError
-    # if a GET (or any other method) we'll create a blank form//
-    else:
-        form = SearchForm()
-
-    return render(request, 'index.html', {'form': form})
+        # if a GET (or any other method) we'll create a blank form//
+        else:
+            form = SearchForm()
+            return render(request, 'index.html', {'form': form})
+    except exception.InputError:
+        template = loader.get_template('error.html')
+        context = {'message' : "You must enter only alphanumerical values"}
+        return HttpResponse(template.render(request=request, context=context))
 
 
 def signIn(request):
