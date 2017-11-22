@@ -13,8 +13,8 @@
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <module name="Series_POOA" />
     <option name="launchJavascriptDebuger" value="false" />
-    <option name="port" value="8000" />
-    <option name="host" value="localhost" />
+    <option name="port" value="" />
+    <option name="host" value="" />
     <option name="additionalOptions" value="" />
     <option name="browserUrl" value="" />
     <option name="runTestServer" value="false" />

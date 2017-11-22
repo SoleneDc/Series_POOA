@@ -1,11 +1,27 @@
-# Series_POOA
-The new Betaseries
-https://api.themoviedb.org/3/tv/5000?api_key=e4c6a6f5fbd60b0316b7ff30e73bec74
-key = e4c6a6f5fbd60b0316b7ff30e73bec74
+PYHTON GROUPE 7 : Notes d’installation pour le projet SeriesPOOA
+============================================================================================================================
 
-Structure générale du projet :
+•	Prérequis : avoir installé pyCharm et Django, et posséder un compte github (sinon utiliser user : TimGuez et mdp temporaire : pooa2017)
+•	Dans pycharm, faire VCS > checkout from version control > GitHub
+•	Remplir ses accès à gitHub et cloner le repository : https://github.com/SoleneDc/Series_POOA.git
 
-__init__.py : Déclare ce répertoire comme étant un module. Cela vous permettra d'importer les réglages ailleurs.
-settings.py : Les réglages généraux du projet.
-urls.py : Les routes utilisées dans le projet.
-wsgi.py : Réglages du serveur web.
+============================================================================================================================
+ATTENTION : bien vérifier qu’un interpréteur est renseigné dans les run configurations
+============================================================================================================================
+
+•	Une fois le projet ajouté, effectuer un run de la configuration Django « Migrate »
+•	Effectuer un run de la configuration Django « createMixedTables »
+•	Pour lancer le server, effectuer un run de la configuration « seriesPOOA »
+•	Se connecter à localhost :8000/index pour voir le résultat
+
+
+============================================================================================================================
+Enfin il existe une dernière configuration qui peut servir : « weekly_mail » .
+Elle est destinée à être activée par un cron hebdomadaire pour lancer un envoi de mail une fois par semaine.
+Vous pouvez la lancer manuellement pour essayer.
+
+L'application web peut encore être amélioré graphiquement, et avec la gestion de l'exception de connection aux API échouées.
+La structure est déjà là et toutes les différentes techniques à utiliser ont déjà servie : gestion d'exceptions, bootstrap, etc.
+
+============================================================================================================================
+Auteurs : Solène Duchamp | Pauline Feray | Timothée Guez
