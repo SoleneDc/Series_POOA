@@ -23,17 +23,31 @@ class Services:
     def __init__(self):
         pass
 
+    def test(query):
+        """
+        :param query: Corresponding to the user's search
+        :return: Returns False if the user typed weird symbols
+        """
+        answer = True
+        for symb in query:
+            if symb.isalnum() == False and symb != "'" and symb != "!":
+                answer = False
+        return answer
+
     def get_IDs(self, query):
         """
         :param query: Corresponding to the user's search
         :return: Returns a list of the series' ids (corresponding to the user's search)
         """
         url_final = Services.URL_BASE + Services.SEARCH + Services.KEY + '&query=' + query
-        req = requests.get(url_final)
-        result = []
-        for item in req.json()['results']:
-            result.append(item['id'])
-        return result
+        if Services.test(query) == False:
+            raise exception.InputError(query,"There is an issue with your query")
+        else:
+            req = requests.get(url_final)
+            result = []
+            for item in req.json()['results']:
+                result.append(item['id'])
+            return result
 
     def get_serie(self, id_serie):
         """

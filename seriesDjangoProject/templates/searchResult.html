@@ -16,8 +16,8 @@
             <form id="searchForm" action="/search/" method="post">
                 {% csrf_token %}
                 {{ form }}
-                <label> People </label><input type="radio" name="tick" value="people"><br>
-                <label> Series </label><input type="radio" name="tick" value="series" checked="checked"><br>
+                <input type="radio" name="tick" value="people"> <label> Rechercher une célébrité   </label> <br>
+                <input type="radio" name="tick" value="series" checked="checked"> <label> Rechercher une série   </label> <br>
                 <input type="text" name="search"/>
                 <input id="submitButton" type="submit" value="Rechercher" onclick="clickButtonSearch()"/>
             </form>
@@ -44,7 +44,7 @@
                 <li>{{item.overview}}</li>
                 <li>{{item.status}}</li>
                 {% if item.is_coming_soon %}
-                    <li>Prochaine episode : <i>{{item.episode_coming_soon_name}}</i> - Sortie le {{ item.episode_coming_soon_air_date }}</li>
+                    <li>Prochain épisode : <i>{{item.episode_coming_soon_name}}</i> - Sortie le {{ item.episode_coming_soon_air_date }}</li>
                 {% endif %}
                 {% if item.is_netflix %}
                     <li>Série Netflix : tous les épisodes sont disponibles</li>
@@ -55,5 +55,6 @@
         {% endfor %}
         </ul>
     </div>
+
 {%  endblock searchResult %}
 </body>
