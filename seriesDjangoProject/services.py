@@ -62,7 +62,7 @@ class Services:
         except requests.ConnectionError:
             template = loader.get_template('error.html')
             context = {'message': "We were unable to connect to the API...",
-                       'todo': "You can check your internet connection oulala!"}
+                       'todo': "You can check your internet connection!"}
             return HttpResponse(template.render(request=request, context=context))
 
     def coming_episode(self, id_serie, L):
