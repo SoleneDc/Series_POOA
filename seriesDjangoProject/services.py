@@ -72,7 +72,7 @@ class Services:
             req = requests.get(url_final)
             season = req.json()
             today = datetime.now()
-            if season['air_date'] == None:
+            if season.get('air_date') == None:
                 return {id_serie: {}}
             date_first_episode = datetime.strptime(season['air_date'], "%Y-%m-%d")
             result = []
@@ -167,7 +167,7 @@ class Services:
         for series in series_list:
             L=[]
             episode = {}
-            if series.status == 'Returning Series':
+            if hasattr(series, 'status') and series.status == 'Returning Series':
                 if len(series._seasons) == 1:
                     L = [0]
                 else:
