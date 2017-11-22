@@ -54,10 +54,16 @@ class Services:
         :param id_serie: ID of the series
         :return: Returns the object serie corresponding to the ID
         """
-        url_final = Services.URL_BASE + Services.GET_TV + str(id_serie) + '?' + Services.KEY
-        req = requests.get(url_final)
-        x = Serie(req.json())
-        return x
+        try:
+            url_final = Services.URL_BASE + Services.GET_TV + str(id_serie) + '?' + Services.KEY
+            req = requests.get(url_final)
+            x = Serie(req.json())
+            return x
+        except requests.ConnectionError:
+            template = loader.get_template('error.html')
+            context = {'message': "We were unable to connect to the API...",
+                       'todo': "You can check your internet connection oulala!"}
+            return HttpResponse(template.render(request=request, context=context))
 
     def coming_episode(self, id_serie, L):
         """

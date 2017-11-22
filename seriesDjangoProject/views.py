@@ -1,4 +1,5 @@
 import json
+import requests
 from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -12,14 +13,20 @@ each fonction is supposed to process a page and send it to the url mapper"""
 
 
 def index(request):
-    service = services.Services()
-    template = loader.get_template('index.html')
-    bestseries = service.discover_best_series() # c'est censé être une liste d'objets
-    user = service.getFullUserFromRequest(request)
-    request.user=user
-    favoriteListe = service.getFavoritesOfUser(user)
-    context = {'bestseries' : bestseries, 'favoriteListe': favoriteListe}
-    return HttpResponse(template.render(request=request, context=context))
+    try:
+        service = services.Services()
+        template = loader.get_template('index.html')
+        bestseries = service.discover_best_series() # c'est censé être une liste d'objets
+        user = service.getFullUserFromRequest(request)
+        request.user=user
+        favoriteListe = service.getFavoritesOfUser(user)
+        context = {'bestseries' : bestseries, 'favoriteListe': favoriteListe}
+        return HttpResponse(template.render(request=request, context=context))
+    except requests.ConnectionError:
+        template = loader.get_template('error.html')
+        context = {'message': "We were unable to connect to the API...",
+                   'todo': "You can check your internet connection!"}
+        return HttpResponse(template.render(request=request, context=context))
 
 
 def search(request):
@@ -65,7 +72,11 @@ def search(request):
             return render(request, 'index.html', {'form': form})
     except exception.InputError:
         template = loader.get_template('error.html')
-        context = {'message' : "You must enter only alphanumerical values"}
+        context = {'message': "You must enter only alphanumerical values...",'todo':"Refresh the page to try again!"}
+        return HttpResponse(template.render(request=request, context=context))
+    except requests.ConnectionError:
+        template = loader.get_template('error.html')
+        context = {'message': "We were unable to connect to the API...",'todo':"You can check your internet connection!"}
         return HttpResponse(template.render(request=request, context=context))
 
 
@@ -119,32 +130,52 @@ def logOut(request):
 
 
 def addToFavorites(request, id):
-    service = services.Services()
-    serie = service.get_serie(id)
-    user = service.getFullUserFromRequest(request)
-    result = service.addToFavorites(user, serie)
-    json_response = {'status': result}
-    return HttpResponse(json.dumps(json_response),
-                        content_type='application/json')
+    try:
+        service = services.Services()
+        serie = service.get_serie(id)
+        user = service.getFullUserFromRequest(request)
+        result = service.addToFavorites(user, serie)
+        json_response = {'status': result}
+        return HttpResponse(json.dumps(json_response), content_type='application/json')
+    except requests.ConnectionError:
+        template = loader.get_template('error.html')
+        context = {'message': "We were unable to connect to the API...",
+                   'todo': "You can check your internet connection!"}
+        return HttpResponse(template.render(request=request, context=context))
 
 
 def removeFromFavorites(request, id):
-    service = services.Services()
-    serie = service.get_serie(id)
-    user = service.getFullUserFromRequest(request)
-    result = service.removeFromFavorites(user, serie)
-    json_response = {'status': result}
-    return HttpResponse(json.dumps(json_response),
-                        content_type='application/json')
+    try:
+        service = services.Services()
+        serie = service.get_serie(id)
+        user = service.getFullUserFromRequest(request)
+        result = service.removeFromFavorites(user, serie)
+        json_response = {'status': result}
+        return HttpResponse(json.dumps(json_response), content_type='application/json')
+    except requests.ConnectionError:
+        template = loader.get_template('error.html')
+        context = {'message': "We were unable to connect to the API...",
+                   'todo': "You can check your internet connection!"}
+        return HttpResponse(template.render(request=request, context=context))
+
 
 def getSeriesInformation(request, series_id):
-    service = services.Services()
-    user = service.getFullUserFromRequest(request)
-    series = service.get_serie(series_id)
-    template = loader.get_template('searchResult.html')
-    response = []
-    response.append(series)
-    response = service.joinInfoAboutFavoriteToSerieList(response, user)
-    response = service.joinInfoAboutComingEpisode(response)
-    context = {'response': response}
-    return HttpResponse(template.render(request=request, context=context))
+    """
+    Function used when we click on a picture
+    """
+    try:
+        service = services.Services()
+        user = service.getFullUserFromRequest(request)
+        series = service.get_serie(series_id)
+        template = loader.get_template('searchResult.html')
+        response = []
+        response.append(series)
+        response = service.joinInfoAboutFavoriteToSerieList(response, user)
+        response = service.joinInfoAboutComingEpisode(response)
+        context = {'response': response}
+        return HttpResponse(template.render(request=request, context=context))
+    except requests.ConnectionError:
+        template = loader.get_template('error.html')
+        context = {'message': "We were unable to connect to the API...",
+                   'todo': "You can check your internet connection!"}
+        return HttpResponse(template.render(request=request, context=context))
