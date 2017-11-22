@@ -41,7 +41,7 @@ class Services:
         """
         url_final = Services.URL_BASE + Services.SEARCH + Services.KEY + '&query=' + query
         if Services.test(query) == False:
-            raise exception.InputError(query,"There is an issue with your query")
+            raise exception.InputError(query,"There is an issue with your query: it should not contain any symbol.")
         else:
             req = requests.get(url_final)
             result = []
