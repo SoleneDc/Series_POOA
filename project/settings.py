@@ -25,7 +25,7 @@ SECRET_KEY = 'rp&48@d18oz45*y%kug8@%+#kne4mr$v4)k(^-fqo_w7vfn%9i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['myseries.sytes.net','myserise.sytes.net']
 
 
 # Application definition
